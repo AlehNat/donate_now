@@ -100,7 +100,12 @@ def create_post():
 	r = client.broadcast([comment.to_operation_structure()])
 	if 'error_description' in r and r['error_description']:
 		return r['error_description']
-	return 'post created'
+
+	all_posts = get_all(user_id)
+	post = all_posts['posts'][permlink]
+	response = Response(json.dumps(post), mimetype='application/json')
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 @app.route('/posts')
