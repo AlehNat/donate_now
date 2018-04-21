@@ -170,7 +170,9 @@ def get_all(user_id):
 			continue
 
 		posts[key] = {
+			'user_id': user_id,
 			'post_id': key,
+			'title': item['title'],
 			'body': json_meta['body'],
 			'timestamp': item['timestamp'],
 			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
