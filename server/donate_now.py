@@ -85,10 +85,13 @@ def create_post():
 	user = User.query.filter_by(user_id=user_id).first()
 	if not user:
 		raise Unauthorized('Not authorized with steemconnect')
+
 	client = Client(access_token=user.steem_token)
+
 	permlink = force_permlink or title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
 	if not permlink or len(permlink) < 4:
 		permlink = str(uuid4())
+
 	comment = Comment(
 		user.user_id,
 		permlink,
@@ -157,7 +160,9 @@ def get_transfers():
 		'transaction_send': transaction_send,
 		'transaction_receive': transaction_receive
 	}
-	return jsonify(result)
+	responce = jsonify(result)
+	responce.headers.add('Access-Control-Allow-Origin', '*')
+	return responce
 
 
 if __name__ == '__main__':
