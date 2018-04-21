@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask import json
 from flask import redirect
 from flask import request
+from flask import Response
 from flask_sqlalchemy import SQLAlchemy
 from steem.account import Account
 from werkzeug.exceptions import Unauthorized
@@ -111,9 +112,9 @@ def get_posts():
 	if post_id:
 		posts = all['posts'][post_id]
 	else:
-		posts = all['posts']
+		posts = all['posts'].values()
 
-	response = jsonify(posts)
+	response = Response(json.dumps(posts), mimetype='application/json')
 	response.headers.add('Access-Control-Allow-Origin', '*')
 	return response
 
@@ -164,6 +165,7 @@ def get_all(user_id):
 			continue
 
 		posts[key] = {
+			'post_id': key,
 			'body': json_meta['body'],
 			'timestamp': item['timestamp'],
 			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
