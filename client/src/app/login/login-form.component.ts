@@ -20,9 +20,17 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  steemconnectLogin() {
+  login() {
     this.document.location.href = 'http://localhost:5000/login';
   }
 
+  signup() {
+    // this.document.location.href = 'https://signup.steemit.com/?ref=donatenow';
+    this.document.location.href = 'https://signup.steemit.com/';
+  }
+
+  usePromo() {
+    this.router.navigate(['/login/promo-code']);
+  }
 }
 

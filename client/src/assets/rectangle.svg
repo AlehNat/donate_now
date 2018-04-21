@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="306" viewBox="0 0 375 306">
+  <defs>
+    <linearGradient id="rectangle-2-b" x1="0%" x2="55.18%" y1="0%" y2="71.794%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+      <stop offset="100%" stop-opacity=".5"/>
+    </linearGradient>
+    <polygon id="rectangle-2-a" points="0 0 375 0 375 103 0 306"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#116FE5" xlink:href="#rectangle-2-a"/>
+    <use fill="url(#rectangle-2-b)" fill-opacity=".5" style="mix-blend-mode:overlay" xlink:href="#rectangle-2-a"/>
+  </g>
+</svg>
