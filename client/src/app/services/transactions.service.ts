@@ -4,7 +4,6 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { TransactionModel } from './models/transaction.model';
 import 'rxjs/add/operator/map';
-import { map } from 'rxjs/operator/map';
 
 @Injectable()
 export class TransactionsService {
@@ -20,7 +19,7 @@ export class TransactionsService {
   ) {
   }
 
-  public getTransactions(username: string) {
+  public getTransactions(username: string): Observable<TransactionModel[]> {
     let url = `${this.baseUrl}${this.urlGet}`;
     let options = {
       params: {
@@ -34,7 +33,7 @@ export class TransactionsService {
       ));
   }
 
-  public getCurrentUserTransactions() {
+  public getCurrentUserTransactions(): Observable<TransactionModel[]> {
     let { username } = this.authService.getProfile();
 
     return this.getTransactions(username);

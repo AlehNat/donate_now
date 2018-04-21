@@ -13,6 +13,8 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LogoutModule } from './logout/logout.module';
 import { TransactionsService } from './services/transactions.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CampaignsModule } from './campaigns/campaigns.module';
+import { CampaignsService } from './services/campaigns.service';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     WelcomeModule,
     DashboardModule,
     HttpClientModule,
+    CampaignsModule,
   ],
   declarations: [
     AppComponent,
@@ -35,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     AuthService,
     AuthGuard,
     TransactionsService,
+    CampaignsService,
   ],
   bootstrap: [AppComponent]
 })

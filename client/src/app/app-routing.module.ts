@@ -10,16 +10,20 @@ import { LoginPromoComponent } from './login/login-promo.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { LogoutComponent } from './logout/logout.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'welcome', component: WelcomeComponent},
   {
     path: 'home', component: HomeComponent,
-    // canActivate: [AuthGuard],
   },
   {
     path: 'dashboard', component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'campaigns', component: CampaignsComponent,
     canActivate: [AuthGuard],
   },
   {

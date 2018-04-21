@@ -21,6 +21,6 @@ export class MenuComponent implements OnInit {
   }
 
   private checkMenuVisibility() {
-   // this.menuVisible = this.authService.isLoggedIn();
+    this.menuVisible = this.authService.isLoggedIn();
   }
 }

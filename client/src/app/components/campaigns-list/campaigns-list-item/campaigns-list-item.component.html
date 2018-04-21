@@ -1,0 +1,20 @@
+<div>
+
+  <img class="campaign-cover" *ngIf="campaign.cover_image_url" src="{{ campaign.cover_image_url }}">
+  <h4>{{ campaign.title }}</h4>
+  <span class="text-hide">{{ campaign.dateCreated() }}</span>
+  <p>{{ campaign.body }}</p>
+
+
+  <div>
+    <span>Transactions:</span>
+    <ul>
+      <li *ngFor="let transaction of campaign.transactions">
+        +{{ transaction.amount_sbd }} SBD {{ transaction.dateCreated() }}
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<hr>
