@@ -8,6 +8,8 @@ from settings import CLIENT_ID, CLIENT_SECRET
 
 app = Flask(__name__)
 
+FE_URL = 'http://localhost:4200/login/success/{}'
+
 
 @app.route('/')
 def hello_world():
@@ -33,11 +35,10 @@ def login_complete():
 	c = Client(
 		access_token=token,
 	)
-	tt = c.me()
-
+	user_info = c.me()
 	s = Steem()
-	rr = s.get_account(tt['name'])['sbd_balance']
-	return rr
+	rr = s.get_account(user_info['name'])['sbd_balance']
+	return redirect(FE_URL.format(user_info['name']))
 
 
 if __name__ == '__main__':
