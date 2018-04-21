@@ -80,11 +80,13 @@ def create_post():
 	user_id = data_dict['user_id']
 	title = data_dict['title']
 	body = data_dict['body']
+	force_permlink = data_dict['force_permlink']
+	cover_image_url = data_dict.get('cover_image_url', '')
 	user = User.query.filter_by(user_id=user_id).first()
 	if not user:
 		raise Unauthorized('Not authorized with steemconnect')
 	client = Client(access_token=user.steem_token)
-	permlink = title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
+	permlink = force_permlink or title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
 	if not permlink or len(permlink) < 4:
 		permlink = str(uuid4())
 	comment = Comment(
@@ -92,7 +94,7 @@ def create_post():
 		permlink,
 		"Make donations/tipping easy <a href=\"http://donatenow.io\">donatenow!</a>",
 		title=title,
-		json_metadata={"app": app_name, "body": body},
+		json_metadata={"app": app_name, "body": body, "cover_image_url": cover_image_url}
 	)
 	r = client.broadcast([comment.to_operation_structure()])
 	if 'error_description' in r and r['error_description']:
@@ -106,11 +108,9 @@ def get_posts():
 	return jsonify({'Status': 'TBD'})
 
 
-@app.route('/get_transfers', methods=['POST'])
+@app.route('/transfers')
 def get_transfers():
-	data_dict = json.loads(request.data)
-	user_id = data_dict['user_id']
-
+	user_id = request.args['user_id']
 	acc = Account(user_id)
 	hist = acc.get_account_history(-1, 10000, filter_by='transfer')
 	listHistory = list(hist)
@@ -162,3 +162,6 @@ def get_transfers():
 
 if __name__ == '__main__':
 	app.run()
+
+
+# https://steemconnect.com/sign/transfer?from=olegn&to=steemitby&amount=0.01%20SBD&memo=test%20commint%20(69d6ac64-ad6d-4492-83b8-4dd0233ef264)
