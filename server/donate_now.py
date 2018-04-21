@@ -102,46 +102,16 @@ def create_post():
 	return 'post created'
 
 
-def get_posts_internal(user_id):
-	acc = Account(user_id)
-	userHistory = list(acc.get_account_history(-1, 10000))
-
-	posts = {}
-
-	for item in userHistory:
-		if item['type'] != 'comment':
-			continue
-		if 'json_metadata' not in item:
-			continue
-
-		json_meta = json.loads(item['json_metadata'])
-
-		if 'app' not in json_meta:
-			continue
-		if not json_meta['app'].startswith('donate.now/'):
-			continue
-
-		key = item['permlink']
-
-		if key in posts or 'body' not in json_meta or not json_meta['body']:
-			continue
-
-		posts[key] = {
-			'body': json_meta['body'],
-			'timestamp': item['timestamp'],
-			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
-		}
-	return posts
-
-
 @app.route('/posts')
 def get_posts():
 	user_id = request.args['user_id']
 	post_id = request.args['post_id'] if 'post_id' in request.args else ''
-	posts = get_posts_internal(user_id)
+	all = get_all(user_id)
 
 	if post_id:
-		posts = posts[post_id]
+		posts = all['posts'][post_id]
+	else:
+		posts = all['posts']
 
 	response = jsonify(posts)
 	response.headers.add('Access-Control-Allow-Origin', '*')
@@ -151,12 +121,25 @@ def get_posts():
 @app.route('/transfers')
 def get_transfers():
 	user_id = request.args['user_id']
+
+	all = get_all(user_id)
+
+	response = jsonify({
+		"result": all['transactions'],
+		"sbd_balance": all["sbd_balance"]
+	})
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
+
+
+def get_all(user_id):
+
 	acc = Account(user_id)
-	userHistory = list(acc.get_account_history(-1, 10000))
+	user_history = list(acc.get_account_history(-1, 10000))
 
 	posts = {}
 
-	for item in userHistory:
+	for item in user_history:
 		if item['type'] != 'comment':
 			continue
 		if 'json_metadata' not in item:
@@ -174,17 +157,22 @@ def get_transfers():
 		if key in posts:
 			continue
 
-		posts[key] = {}
+		if 'body' not in json_meta:
+			continue
 
-		if 'body' in json_meta:
-			posts[key]['body'] = json_meta['body']
-		else:
-			posts[key]['body'] = ''
+		if not json_meta['body']:
+			continue
+
+		posts[key] = {
+			'body': json_meta['body'],
+			'timestamp': item['timestamp'],
+			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
+			'transactions': [],
+		}
 
 	transactions = []
 
-
-	for item in userHistory:
+	for item in user_history:
 
 		if item['type'] != 'transfer':
 			continue
@@ -195,14 +183,17 @@ def get_transfers():
 		comment = None
 
 		if memo.endswith(')') and memo.rfind('(') != -1:
-			comment = memo[0:memo.rfind('(')]
+			comment = memo[0:memo.rfind('(')].strip()
 
-		# for key in posts.keys():
-		#     k = '({})'.format(key)
-		#     if (k in memo):
-		#         print key
-		#         comment = memo.replace(k, '')
-		#         break
+		post_id = None
+
+		for key in posts.keys():
+			k = '({})'.format(key)
+			if (k in memo):
+				print key
+				comment = memo.replace(k, '').strip()
+				post_id = key
+				break
 
 		if not comment:
 			continue
@@ -214,28 +205,39 @@ def get_transfers():
 		if item['amount'].endswith('SBD'):
 			amount_sbd = float(item['amount'].replace('SBD', ''))
 
+		transaction = None
+
 		if item['from'] == user_id:
-			transactions.append({
+			transaction = {
 				'amount_sbd': -amount_sbd,
 				'amount_steem': -amount_steem,
 				'comment': comment,
 				'counterparty': item['to'],
 				'timestamp': item['timestamp'],
-			})
+			}
 
 		if item['to'] == user_id:
-			transactions.append({
+			transaction = {
 				'amount_sbd': amount_sbd,
 				'amount_steem': amount_steem,
 				'comment': comment,
 				'counterparty': item['from'],
 				'timestamp': item['timestamp'],
-			})
+			}
 
-	response = jsonify({"result": transactions,"sbd_balance": acc["sbd_balance"]})
-	response.headers.add('Access-Control-Allow-Origin', '*')
-	return response
+		if not transaction:
+			continue
 
+		if post_id in posts:
+			posts[post_id]['transactions'].append(transaction)
+
+		transactions.append(transaction)
+
+	return {
+		'posts': posts,
+		'transactions': transactions,
+		'sbd_balance': acc["sbd_balance"]
+	}
 
 if __name__ == '__main__':
 	app.run()
