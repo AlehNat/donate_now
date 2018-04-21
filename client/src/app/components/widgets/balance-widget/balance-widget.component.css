@@ -1,0 +1,93 @@
+
+div.balance-widget {
+  height: 80px;
+  background-color: #0e64cc;
+  display: flex;
+  flex-direction: row;
+}
+
+.steem-logo {
+  width: 44px;
+  height: 47px;
+  margin: 16px 24px;
+  object-fit: contain;
+}
+
+.balance-amount {
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.balance-info .title {
+  opacity: 0.75;
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
+  display: block;
+
+}
+
+.balance-info .diff-amount {
+  width: 14px;
+  height: 16px;
+  font-size: 12px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.diff-direction {
+  font-size: 22px;
+  margin-right: -5px;
+}
+
+.balance-info {
+  height: 47px;
+  margin: 16px 0;
+  color: white;
+}
+
+.positive {
+  color: #28cb6b;
+}
+
+.negative {
+  color: #ff0048;
+}
+
+.balance-actions {
+  height: 32px;
+  margin-top: 24px;
+  margin-left: 100px;
+}
+
+.balance-actions .btn:last-child {
+  margin-left: 16px;
+}
+
+.btn-round {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 26px;
+  line-height: 26px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  padding: 0 0 5px 0;
+  margin: 0;
+}
+
+.btn-plus {
+  background-color: #ffc000;
+}
+
+.btn-down {
+  background-color: #116fe5;
+}
