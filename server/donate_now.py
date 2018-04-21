@@ -102,9 +102,7 @@ def create_post():
 	return 'post created'
 
 
-@app.route('/posts')
-def get_posts():
-	user_id = request.args['user_id']
+def get_posts_internal(user_id):
 	acc = Account(user_id)
 	userHistory = list(acc.get_account_history(-1, 10000))
 
@@ -130,8 +128,20 @@ def get_posts():
 
 		posts[key] = {
 			'body': json_meta['body'],
+			'timestamp': item['timestamp'],
 			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
 		}
+	return posts
+
+
+@app.route('/posts')
+def get_posts():
+	user_id = request.args['user_id']
+	post_id = request.args['post_id'] if 'post_id' in request.args else ''
+	posts = get_posts_internal(user_id)
+
+	if post_id:
+		posts = posts[post_id]
 
 	response = jsonify(posts)
 	response.headers.add('Access-Control-Allow-Origin', '*')
@@ -164,15 +174,7 @@ def get_transfers():
 		if key in posts:
 			continue
 
-		posts[key] = {
-			'comments_count': 0,
-			'total_send_sbd': 0.0,
-			'total_send_steem': 0.0,
-			'total_receive_sbd': 0.0,
-			'total_receive_steem': 0.0,
-			'transaction_send': [],
-			'transaction_receive': []
-		}
+		posts[key] = {}
 
 		if 'body' in json_meta:
 			posts[key]['body'] = json_meta['body']
@@ -240,3 +242,6 @@ if __name__ == '__main__':
 
 
 # https://steemconnect.com/sign/transfer?from=olegn&to=steemitby&amount=0.01%20SBD&memo=test%20commint%20(69d6ac64-ad6d-4492-83b8-4dd0233ef264)
+
+# https://barcode.tec-it.com/barcode.ashx?code=QRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0&eclevel=L&data=fgjhdsg%20kjfhgd%20kjhsfgd%20kjs
+
