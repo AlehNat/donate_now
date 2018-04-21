@@ -3,6 +3,7 @@ from flask import json
 from flask import redirect
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
+from steem.account import Account
 from werkzeug.exceptions import Unauthorized
 
 from settings import CLIENT_ID, CLIENT_SECRET, SQLALCHEMY_DATABASE_URI
@@ -107,55 +108,56 @@ def get_posts():
 
 @app.route('/get_transfers', methods=['POST'])
 def get_transfers():
-	userName = request.args['user_id']
-    acc = Account(userName)
-    hist = acc.get_account_history(-1, 10000, filter_by='transfer')
-    listHistory = list(hist)
+	data_dict = json.loads(request.data)
+	user_id = data_dict['user_id']
 
-    total_send_sbd = 0.0
-    total_receive_sbd = 0.0
-    total_send_steem = 0.0
-    total_receive_steem = 0.0
-    transaction_send = []
-    transaction_receive = []
+	acc = Account(user_id)
+	hist = acc.get_account_history(-1, 10000, filter_by='transfer')
+	listHistory = list(hist)
 
-    for item in listHistory:
+	total_send_sbd = 0.0
+	total_receive_sbd = 0.0
+	total_send_steem = 0.0
+	total_receive_steem = 0.0
+	transaction_send = []
+	transaction_receive = []
 
-        amount_sbd = 0.0
-        amount_steem = 0.0
+	for item in listHistory:
+		amount_sbd = 0.0
+		amount_steem = 0.0
 
-        if str(item['amount']).endswith('STEEM'):
-            amount_steem = float(str(item['amount']).replace('STEEM', ''))
+		if item['amount'].endswith('STEEM'):
+			amount_steem = float(item['amount'].replace('STEEM', ''))
 
-        if str(item['amount']).endswith('SBD'):
-            amount_sbd = float(str(item['amount']).replace('SBD', ''))
+		if item['amount'].endswith('SBD'):
+			amount_sbd = float(item['amount'].replace('SBD', ''))
 
-        transaction = {
-            'amount_sbd': amount_sbd,
-            'amount_steem': amount_steem,
-            'timestamp': item['timestamp'],
-            'memo': item['memo']
-        }
+		transaction = {
+			'amount_sbd': amount_sbd,
+			'amount_steem': amount_steem,
+			'timestamp': item['timestamp'],
+			'memo': item['memo']
+		}
 
-        if item['from'] == userName:
-            total_send_sbd += amount_sbd
-            total_send_steem += amount_steem
-            transaction_send.append(transaction)
+		if item['from'] == user_id:
+			total_send_sbd += amount_sbd
+			total_send_steem += amount_steem
+			transaction_send.append(transaction)
 
-        if item['to'] == userName:
-            total_receive_sbd += amount_sbd
-            total_receive_steem += amount_steem
-            transaction_receive.append(transaction)
+		if item['to'] == user_id:
+			total_receive_sbd += amount_sbd
+			total_receive_steem += amount_steem
+			transaction_receive.append(transaction)
 
-    result = {
-        'total_send_sbd': total_send_sbd,
-        'total_send_steem': total_send_steem,
-        'total_receive_sbd': total_receive_sbd,
-        'total_receive_steem': total_receive_steem,
-        'transaction_send': transaction_send,
-        'transaction_receive': transaction_receive
-    }
-    return jsonify(result)
+	result = {
+		'total_send_sbd': total_send_sbd,
+		'total_send_steem': total_send_steem,
+		'total_receive_sbd': total_receive_sbd,
+		'total_receive_steem': total_receive_steem,
+		'transaction_send': transaction_send,
+		'transaction_receive': transaction_receive
+	}
+	return jsonify(result)
 
 
 if __name__ == '__main__':
