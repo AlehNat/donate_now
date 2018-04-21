@@ -1,0 +1,21 @@
+
+.login-buttons {
+  margin-top: 400px;
+  padding: 0 40px;
+}
+
+.login-buttons .btn-default {
+  color: white;
+}
+
+.login-buttons .btn-primary {
+
+}
+
+.login-buttons button span {
+  font-weight: bold;
+}
+
+.login-buttons .btn {
+  margin-bottom: 20px;
+}
