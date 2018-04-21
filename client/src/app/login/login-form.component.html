@@ -1,10 +1,26 @@
-<div class="row text-center login-buttons">
-  <div class="col-md-8">
-    <button class="btn btn-primary col-sm-10" (click)="steemconnectLogin()">
+<div class="row login-logo">
+  <img src="assets/icons/payment.png" class="payment-icon"
+       srcset="assets/icons/payment@2x.png 2x,assets/icons/payment@3x.png 3x">
+  <div class="logo-text text-center">
+    donate<strong>now</strong>
+  </div>
+</div>
+
+<div class="row text-center login-buttons col-md-12">
+  <div class="col-md-12">
+    <button class="btn btn-primary" (click)="login()">
       Login with steem<span>connect</span></button>
   </div>
 
-  <div class="col-md-8">
-    <button class="btn btn-default col-sm-10 bg-dark">Sign up</button>
+  <div class="col-md-12">
+    <button class="btn btn-default" (click)="signup()">
+      Sign Up
+    </button>
+  </div>
+
+  <div class="col-md-12">
+    <button class="btn btn-link" (click)="usePromo()">
+      Have a promo code?
+    </button>
   </div>
 </div>

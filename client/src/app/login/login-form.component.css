@@ -1,15 +1,43 @@
+.login-logo {
+  flex-direction: column;
+  padding-top: 120px;
+  margin: 0 -15px;
+  width: calc(100% + 30px);
+  height: 306px;
+  background: url('/assets/rectangle.svg') no-repeat;
+  background-size: cover;
+}
+
+.payment-icon {
+  /*margin: 110px auto;*/
+  /*width: 126px;*/
+  /*height: 128px;*/
+  object-fit: contain;
+}
+
+.logo-text {
+  margin-top: 16px;
+  font-size: 24px;
+  opacity: 0.85;
+}
 
 .login-buttons {
-  margin-top: 400px;
-  padding: 0 40px;
+  margin: 90px auto;
 }
 
 .login-buttons .btn-default {
   color: white;
+  background-color: #03162d;
 }
 
 .login-buttons .btn-primary {
+  background-color: #116fe5;
+}
 
+.login-buttons .btn-link {
+  color: #03162d;
+  opacity: 0.5;
+  text-decoration: underline;
 }
 
 .login-buttons button span {
@@ -17,5 +45,8 @@
 }
 
 .login-buttons .btn {
-  margin-bottom: 20px;
+  width: 254px;
+  height: 40px;
+  margin-bottom: 16px;
+  cursor: pointer;
 }
