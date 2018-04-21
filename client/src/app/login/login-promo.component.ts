@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-login-promo',
+  selector: 'login-promo',
   templateUrl: './login-promo.component.html',
   styleUrls: ['./login-promo.component.css']
 })

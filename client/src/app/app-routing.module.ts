@@ -7,6 +7,9 @@ import { LoginSuccessComponent } from './login/login-success.component';
 import { NotFoundComponent } from './not-found.component';
 import { LoginFormComponent } from './login/login-form.component';
 import { LoginPromoComponent } from './login/login-promo.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './services/auth-guard.service';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -16,6 +19,10 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
+    path: 'dashboard', component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'login', component: LoginComponent,
     children: [
       {path: '', component: LoginFormComponent},
@@ -23,6 +30,7 @@ const routes: Routes = [
       {path: 'success/:username', component: LoginSuccessComponent},
     ]
   },
+  {path: 'logout', component: LogoutComponent},
   // {path: '**', component: NotFoundComponent}
 ];
 

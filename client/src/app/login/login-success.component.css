@@ -1,0 +1,24 @@
+.icon-check {
+  margin: 50px auto;
+}
+
+.welcome-message p {
+  opacity: 0.5;
+  font-size: 14px;
+  color: #03162d;
+}
+
+.success-msg {
+  margin-top: 100px;
+}
+
+.btn-primary {
+  background-color: #116fe5;
+}
+
+.btn {
+  width: 254px;
+  height: 40px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
