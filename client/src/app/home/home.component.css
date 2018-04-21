@@ -1,0 +1,18 @@
+
+.home-area {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.list-featured {
+  margin: 20px auto;
+  width: 400px;
+}
+
+.list-featured li {
+  text-align: left;
+}
+
+.list-featured li:not(:last-child) {
+  margin-bottom: 10px;
+}
