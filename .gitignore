@@ -92,3 +92,4 @@ ENV/
 
 .idea
 server/settings.py
+server/test.sqlite3

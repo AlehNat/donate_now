@@ -119,13 +119,19 @@ def get_transfers():
 	for item in userHistory:
 		if item['type'] != 'comment':
 			continue
+		if 'json_metadata' not in item:
+			continue
+
 		json_meta = json.loads(item['json_metadata'])
+
+		if 'app' not in json_meta:
+			continue
 		if not json_meta['app'].startswith('donate.now/'):
 			continue
 
 		key = item['permlink']
 
-		if posts.has_key(key):
+		if key in posts:
 			continue
 
 		posts[key] = {
@@ -138,19 +144,22 @@ def get_transfers():
 			'transaction_receive': []
 		}
 
-		if json_meta.has_key('body'):
+		if 'body' in json_meta:
 			posts[key]['body'] = json_meta['body']
 		else:
 			posts[key]['body'] = ''
 
 	transactions = []
 
+
 	for item in userHistory:
 
 		if item['type'] != 'transfer':
 			continue
 
-		memo = str(item['memo'])
+		if 'memo' not in item:
+			continue
+		memo = item['memo']
 		comment = None
 
 		if memo.endswith(')') and memo.rfind('(') != -1:
@@ -191,7 +200,7 @@ def get_transfers():
 				'timestamp': item['timestamp'],
 			})
 
-	response = jsonify(transactions)
+	response = jsonify({"result": transactions})
 	response.headers.add('Access-Control-Allow-Origin', '*')
 	return response
 
