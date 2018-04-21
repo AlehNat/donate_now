@@ -3,6 +3,7 @@ from flask import json
 from flask import redirect
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
+from steem.account import Account
 from werkzeug.exceptions import Unauthorized
 
 from settings import CLIENT_ID, CLIENT_SECRET, SQLALCHEMY_DATABASE_URI
@@ -16,6 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 FE_URL = 'http://localhost:4200/login/success/{}'
+app_name = "donate.now/0.0.1"
 
 
 class User(db.Model):
@@ -78,11 +80,13 @@ def create_post():
 	user_id = data_dict['user_id']
 	title = data_dict['title']
 	body = data_dict['body']
+	force_permlink = data_dict['force_permlink']
+	cover_image_url = data_dict.get('cover_image_url', '')
 	user = User.query.filter_by(user_id=user_id).first()
 	if not user:
-		raise Unauthorized('Not authorized with steamconnect')
+		raise Unauthorized('Not authorized with steemconnect')
 	client = Client(access_token=user.steem_token)
-	permlink = title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
+	permlink = force_permlink or title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
 	if not permlink or len(permlink) < 4:
 		permlink = str(uuid4())
 	comment = Comment(
@@ -90,7 +94,7 @@ def create_post():
 		permlink,
 		"Make donations/tipping easy <a href=\"http://donatenow.io\">donatenow!</a>",
 		title=title,
-		json_metadata={"app": "donate.now/0.0.1", "body": body},
+		json_metadata={"app": app_name, "body": body, "cover_image_url": cover_image_url}
 	)
 	r = client.broadcast([comment.to_operation_structure()])
 	if 'error_description' in r and r['error_description']:
@@ -104,57 +108,90 @@ def get_posts():
 	return jsonify({'Status': 'TBD'})
 
 
-@app.route('/get_transfers', methods=['POST'])
+@app.route('/transfers')
 def get_transfers():
-	userName = request.args['user_id']
-    acc = Account(userName)
-    hist = acc.get_account_history(-1, 10000, filter_by='transfer')
-    listHistory = list(hist)
+	user_id = request.args['user_id']
+	acc = Account(user_id)
+	userHistory = list(acc.get_account_history(-1, 10000))
 
-    total_send_sbd = 0.0
-    total_receive_sbd = 0.0
-    total_send_steem = 0.0
-    total_receive_steem = 0.0
-    transaction_send = []
-    transaction_receive = []
+	posts = {}
 
-    for item in listHistory:
+	for item in userHistory:
+		if item['type'] != 'comment':
+			continue
+		json_meta = json.loads(item['json_metadata'])
+		if not json_meta['app'].startswith('donate.now/'):
+			continue
 
-        amount_sbd = 0.0
-        amount_steem = 0.0
+		key = item['permlink']
 
-        if str(item['amount']).endswith('STEEM'):
-            amount_steem = float(str(item['amount']).replace('STEEM', ''))
+		if posts.has_key(key):
+			continue
 
-        if str(item['amount']).endswith('SBD'):
-            amount_sbd = float(str(item['amount']).replace('SBD', ''))
+		posts[key] = {
+			'comments_count': 0,
+			'total_send_sbd': 0.0,
+			'total_send_steem': 0.0,
+			'total_receive_sbd': 0.0,
+			'total_receive_steem': 0.0,
+			'transaction_send': [],
+			'transaction_receive': []
+		}
 
-        transaction = {
-            'amount_sbd': amount_sbd,
-            'amount_steem': amount_steem,
-            'timestamp': item['timestamp'],
-            'memo': item['memo']
-        }
+		if json_meta.has_key('body'):
+			posts[key]['body'] = json_meta['body']
+		else:
+			posts[key]['body'] = ''
 
-        if item['from'] == userName:
-            total_send_sbd += amount_sbd
-            total_send_steem += amount_steem
-            transaction_send.append(transaction)
+	transactions = []
 
-        if item['to'] == userName:
-            total_receive_sbd += amount_sbd
-            total_receive_steem += amount_steem
-            transaction_receive.append(transaction)
+	for item in userHistory:
 
-    result = {
-        'total_send_sbd': total_send_sbd,
-        'total_send_steem': total_send_steem,
-        'total_receive_sbd': total_receive_sbd,
-        'total_receive_steem': total_receive_steem,
-        'transaction_send': transaction_send,
-        'transaction_receive': transaction_receive
-    }
-    return jsonify(result)
+		if item['type'] != 'transfer':
+			continue
+
+		memo = str(item['memo'])
+		comment = None
+
+		if memo.endswith(')') and memo.rfind('(') != -1:
+			comment = memo[0:memo.rfind('(')]
+
+		# for key in posts.keys():
+		#     k = '({})'.format(key)
+		#     if (k in memo):
+		#         print key
+		#         comment = memo.replace(k, '')
+		#         break
+
+		if not comment:
+			continue
+
+		amount_sbd = 0.0
+		amount_steem = 0.0
+		if str(item['amount']).endswith('STEEM'):
+			amount_steem = float(str(item['amount']).replace('STEEM', ''))
+		if str(item['amount']).endswith('SBD'):
+			amount_sbd = float(str(item['amount']).replace('SBD', ''))
+
+		if item['from'] == user_id:
+			transactions.append({
+				'amount_sbd': -amount_sbd,
+				'amount_steem': -amount_steem,
+				'comment': comment,
+				'counterparty': item['to'],
+				'timestamp': item['timestamp'],
+			})
+
+		if item['to'] == user_id:
+			transactions.append({
+				'amount_sbd': amount_sbd,
+				'amount_steem': amount_steem,
+				'comment': comment,
+				'counterparty': item['from'],
+				'timestamp': item['timestamp'],
+			})
+
+	return jsonify(transactions)
 
 
 if __name__ == '__main__':
