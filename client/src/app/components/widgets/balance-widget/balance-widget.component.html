@@ -1,0 +1,21 @@
+<div class="balance-widget">
+
+  <img src="/assets/icons/steem-logo.png" class="steem-logo"
+       srcset="/assets/icons/steem-logo@2x.png 2x, /assets/icons/steem-logo@3x.png 3x">
+
+  <div class="balance-info">
+    <span class="title">My balance</span>
+    <span class="balance-amount">{{ balance }}</span>
+    <span class="balance-amount--diff" [ngSwitch]="diff > 0" [ngClass]="{'positive':diff > 0, 'negative': diff < 0}">
+      <span *ngSwitchCase="true" class="diff-direction">&uarr;</span>
+      <span *ngSwitchCase="false" class="diff-direction">&darr;</span>
+      <span class="diff-amount">{{ diff }}</span>
+    </span>
+  </div>
+
+  <div class="balance-actions">
+    <button class="btn btn-round btn-plus">+</button>
+    <button class="btn btn-round btn-down">&darr;</button>
+  </div>
+
+</div>

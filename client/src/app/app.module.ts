@@ -8,6 +8,11 @@ import { MenuModule } from './menu/menu.module';
 import { AuthService } from './services/auth.service';
 import { WelcomeModule } from './welcome/welcome.module';
 import { NotFoundComponent } from './not-found.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthGuard } from './services/auth-guard.service';
+import { LogoutModule } from './logout/logout.module';
+import { TransactionsService } from './services/transactions.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,16 +20,21 @@ import { NotFoundComponent } from './not-found.component';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    LogoutModule,
     HomeModule,
     MenuModule,
     WelcomeModule,
+    DashboardModule,
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   providers: [
     AuthService,
+    AuthGuard,
+    TransactionsService,
   ],
   bootstrap: [AppComponent]
 })

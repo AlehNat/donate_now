@@ -1,0 +1,36 @@
+<div class="transaction-item">
+
+  <ng-container *ngIf="transaction.amount_sbd > 0">
+
+    <div class="item-details">
+      <div class="amount positive">
+        +{{ transaction.amount_sbd }}
+      </div>
+
+      <div class="timestamp">{{ transaction.dateCreated() }}</div>
+    </div>
+
+    <div class="comment">
+      {{ transaction.comment }}
+    </div>
+
+  </ng-container>
+
+
+  <ng-container *ngIf="transaction.amount_sbd < 0">
+
+
+    <div class="item-details">
+      <div class="amount negative">
+        -{{ transaction.amount_sbd }}
+      </div>
+      <div class="timestamp">{{ transaction.dateCreated() }}</div>
+    </div>
+
+    <div class="comment">
+      {{ transaction.comment }}
+    </div>
+
+  </ng-container>
+
+</div>

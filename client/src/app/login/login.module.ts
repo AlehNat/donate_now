@@ -6,11 +6,13 @@ import { RouterModule } from '@angular/router';
 import { LoginSuccessComponent } from './login-success.component';
 import { LoginFormComponent } from './login-form.component';
 import { LoginPromoComponent } from './login-promo.component';
+import { SubheaderModule } from '../components/subheader/subheader.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    SubheaderModule,
   ],
   declarations: [
     LoginComponent,
