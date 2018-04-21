@@ -21,7 +21,7 @@ const routes: Routes = [
       {path: 'success/:username', component: LoginSuccessComponent},
     ]
   },
-  {path: '**', component: NotFoundComponent}
+  // {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

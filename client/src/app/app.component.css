@@ -1,5 +1,9 @@
 
 
 main.container {
+
+}
+
+main.container.mt60 {
   margin-top: 60px;
 }
