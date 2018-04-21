@@ -112,7 +112,7 @@ def get_posts():
 def get_transfers():
 	user_id = request.args['user_id']
 	acc = Account(user_id)
-	userHistory = list(acc.get_account_history(-1, 10000))
+userHistory = list(acc.get_account_history(-1, 10000))
 
 	posts = {}
 
@@ -196,3 +196,6 @@ def get_transfers():
 
 if __name__ == '__main__':
 	app.run()
+
+
+# https://steemconnect.com/sign/transfer?from=olegn&to=steemitby&amount=0.01%20SBD&memo=test%20commint%20(69d6ac64-ad6d-4492-83b8-4dd0233ef264)
