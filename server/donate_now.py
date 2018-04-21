@@ -102,10 +102,40 @@ def create_post():
 	return 'post created'
 
 
-@app.route('/get_posts', methods=['POST'])
+@app.route('/posts')
 def get_posts():
 	user_id = request.args['user_id']
-	return jsonify({'Status': 'TBD'})
+	acc = Account(user_id)
+	userHistory = list(acc.get_account_history(-1, 10000))
+
+	posts = {}
+
+	for item in userHistory:
+		if item['type'] != 'comment':
+			continue
+		if 'json_metadata' not in item:
+			continue
+
+		json_meta = json.loads(item['json_metadata'])
+
+		if 'app' not in json_meta:
+			continue
+		if not json_meta['app'].startswith('donate.now/'):
+			continue
+
+		key = item['permlink']
+
+		if key in posts or 'body' not in json_meta or not json_meta['body']:
+			continue
+
+		posts[key] = {
+			'body': json_meta['body'],
+			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
+		}
+
+	response = jsonify(posts)
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 @app.route('/transfers')
@@ -200,7 +230,7 @@ def get_transfers():
 				'timestamp': item['timestamp'],
 			})
 
-	response = jsonify({"result": transactions})
+	response = jsonify({"result": transactions,"sbd_balance": acc["sbd_balance"]})
 	response.headers.add('Access-Control-Allow-Origin', '*')
 	return response
 
