@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
+import { MenuModule } from './menu/menu.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { HomeModule } from './home/home.module';
     AppRoutingModule,
     LoginModule,
     HomeModule,
+    MenuModule,
   ],
   declarations: [
     AppComponent
