@@ -112,52 +112,86 @@ def get_posts():
 def get_transfers():
 	user_id = request.args['user_id']
 	acc = Account(user_id)
-	hist = acc.get_account_history(-1, 10000, filter_by='transfer')
-	listHistory = list(hist)
+userHistory = list(acc.get_account_history(-1, 10000))
 
-	total_send_sbd = 0.0
-	total_receive_sbd = 0.0
-	total_send_steem = 0.0
-	total_receive_steem = 0.0
-	transaction_send = []
-	transaction_receive = []
+	posts = {}
 
-	for item in listHistory:
-		amount_sbd = 0.0
-		amount_steem = 0.0
+	for item in userHistory:
+		if item['type'] != 'comment':
+			continue
+		json_meta = json.loads(item['json_metadata'])
+		if not json_meta['app'].startswith('donate.now/'):
+			continue
 
-		if item['amount'].endswith('STEEM'):
-			amount_steem = float(item['amount'].replace('STEEM', ''))
+		key = item['permlink']
 
-		if item['amount'].endswith('SBD'):
-			amount_sbd = float(item['amount'].replace('SBD', ''))
+		if posts.has_key(key):
+			continue
 
-		transaction = {
-			'amount_sbd': amount_sbd,
-			'amount_steem': amount_steem,
-			'timestamp': item['timestamp'],
-			'memo': item['memo']
+		posts[key] = {
+			'comments_count': 0,
+			'total_send_sbd': 0.0,
+			'total_send_steem': 0.0,
+			'total_receive_sbd': 0.0,
+			'total_receive_steem': 0.0,
+			'transaction_send': [],
+			'transaction_receive': []
 		}
 
+		if json_meta.has_key('body'):
+			posts[key]['body'] = json_meta['body']
+		else:
+			posts[key]['body'] = ''
+
+	transactions = []
+
+	for item in userHistory:
+
+		if item['type'] != 'transfer':
+			continue
+
+		memo = str(item['memo'])
+		comment = None
+
+		if memo.endswith(')') and memo.rfind('(') != -1:
+			comment = memo[0:memo.rfind('(')]
+
+		# for key in posts.keys():
+		#     k = '({})'.format(key)
+		#     if (k in memo):
+		#         print key
+		#         comment = memo.replace(k, '')
+		#         break
+
+		if not comment:
+			continue
+
+		amount_sbd = 0.0
+		amount_steem = 0.0
+		if str(item['amount']).endswith('STEEM'):
+			amount_steem = float(str(item['amount']).replace('STEEM', ''))
+		if str(item['amount']).endswith('SBD'):
+			amount_sbd = float(str(item['amount']).replace('SBD', ''))
+
 		if item['from'] == user_id:
-			total_send_sbd += amount_sbd
-			total_send_steem += amount_steem
-			transaction_send.append(transaction)
+			transactions.append({
+				'amount_sbd': -amount_sbd,
+				'amount_steem': -amount_steem,
+				'comment': comment,
+				'counterparty': item['to'],
+				'timestamp': item['timestamp'],
+			})
 
 		if item['to'] == user_id:
-			total_receive_sbd += amount_sbd
-			total_receive_steem += amount_steem
-			transaction_receive.append(transaction)
+			transactions.append({
+				'amount_sbd': amount_sbd,
+				'amount_steem': amount_steem,
+				'comment': comment,
+				'counterparty': item['from'],
+				'timestamp': item['timestamp'],
+			})
 
-	result = {
-		'total_send_sbd': total_send_sbd,
-		'total_send_steem': total_send_steem,
-		'total_receive_sbd': total_receive_sbd,
-		'total_receive_steem': total_receive_steem,
-		'transaction_send': transaction_send,
-		'transaction_receive': transaction_receive
-	}
-	return jsonify(result)
+	return jsonify(transactions)
 
 
 if __name__ == '__main__':
