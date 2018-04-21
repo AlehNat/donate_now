@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,9 @@ export class LoginComponent implements OnInit {
   public msg: string;
 
   constructor(
-    private loginService: LoginService,
+    // private loginService: LoginService,
   ) {
-    this.loginService.helloWorld().subscribe((msg) => this.msg = msg);
+    // this.loginService.helloWorld().subscribe((msg) => this.msg = msg);
   }
 
   ngOnInit() {
