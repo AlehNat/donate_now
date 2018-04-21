@@ -5,6 +5,7 @@ import { LoginService } from '../services/login.service';
 import { RouterModule } from '@angular/router';
 import { LoginSuccessComponent } from './login-success.component';
 import { LoginFormComponent } from './login-form.component';
+import { LoginPromoComponent } from './login-promo.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoginFormComponent } from './login-form.component';
     LoginComponent,
     LoginSuccessComponent,
     LoginFormComponent,
+    LoginPromoComponent,
   ],
   providers: [
     LoginService,

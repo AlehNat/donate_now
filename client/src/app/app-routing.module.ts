@@ -6,6 +6,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginSuccessComponent } from './login/login-success.component';
 import { NotFoundComponent } from './not-found.component';
 import { LoginFormComponent } from './login/login-form.component';
+import { LoginPromoComponent } from './login/login-promo.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -18,6 +19,7 @@ const routes: Routes = [
     path: 'login', component: LoginComponent,
     children: [
       {path: '', component: LoginFormComponent},
+      {path: 'promo-code', component: LoginPromoComponent},
       {path: 'success/:username', component: LoginSuccessComponent},
     ]
   },

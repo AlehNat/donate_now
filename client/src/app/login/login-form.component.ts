@@ -25,7 +25,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   signup() {
-    this.document.location.href = 'https://signup.steemit.com/?ref=donatenow';
+    // this.document.location.href = 'https://signup.steemit.com/?ref=donatenow';
+    this.document.location.href = 'https://signup.steemit.com/';
   }
 
   usePromo() {

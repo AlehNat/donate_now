@@ -1,30 +1,24 @@
 .login-logo {
+  flex-direction: column;
+  padding-top: 120px;
   margin: 0 -15px;
   width: calc(100% + 30px);
   height: 306px;
-  /*background-blend-mode: overlay, normal;*/
-  /*background-image: linear-gradient(137deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)),*/
-                    /*linear-gradient(#116fe5, #116fe5),*/
-                    /*linear-gradient(white, white);*/
   background: url('/assets/rectangle.svg') no-repeat;
   background-size: cover;
 }
 
-.login-logo-test::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 200px 200px;
-  border-color: transparent transparent #ffffff transparent;
+.payment-icon {
+  /*margin: 110px auto;*/
+  /*width: 126px;*/
+  /*height: 128px;*/
+  object-fit: contain;
 }
 
-.payment-icon {
-  margin: 110px auto;
-  width: 126px;
-  height: 128px;
-  object-fit: contain;
+.logo-text {
+  margin-top: 16px;
+  font-size: 24px;
+  opacity: 0.85;
 }
 
 .login-buttons {
