@@ -112,7 +112,7 @@ def get_posts():
 def get_transfers():
 	user_id = request.args['user_id']
 	acc = Account(user_id)
-userHistory = list(acc.get_account_history(-1, 10000))
+	userHistory = list(acc.get_account_history(-1, 10000))
 
 	posts = {}
 
@@ -168,10 +168,10 @@ userHistory = list(acc.get_account_history(-1, 10000))
 
 		amount_sbd = 0.0
 		amount_steem = 0.0
-		if str(item['amount']).endswith('STEEM'):
+		if item['amount'].endswith('STEEM'):
 			amount_steem = float(str(item['amount']).replace('STEEM', ''))
-		if str(item['amount']).endswith('SBD'):
-			amount_sbd = float(str(item['amount']).replace('SBD', ''))
+		if item['amount'].endswith('SBD'):
+			amount_sbd = float(item['amount'].replace('SBD', ''))
 
 		if item['from'] == user_id:
 			transactions.append({
@@ -191,9 +191,9 @@ userHistory = list(acc.get_account_history(-1, 10000))
 				'timestamp': item['timestamp'],
 			})
 
-	responce = jsonify(result)
-	responce.headers.add('Access-Control-Allow-Origin', '*')
-	return responce
+	response = jsonify(transactions)
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 if __name__ == '__main__':
