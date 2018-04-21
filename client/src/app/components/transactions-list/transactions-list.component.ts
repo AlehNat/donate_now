@@ -23,7 +23,7 @@ export class TransactionsListComponent implements OnInit {
 
   private subscribeToData() {
     this.transactionsService.getCurrentUserTransactions().subscribe(
-      (items: Transaction[]) => this.transactions = items
+      (items: TransactionModel[]) => this.transactions = items
     );
 
     // let stub = [
