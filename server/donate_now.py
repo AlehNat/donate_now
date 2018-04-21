@@ -1,10 +1,14 @@
 from flask import Flask, jsonify
+from flask import json
 from flask import redirect
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.exceptions import Unauthorized
 
 from settings import CLIENT_ID, CLIENT_SECRET, SQLALCHEMY_DATABASE_URI
 from steemconnect.client import Client
+from steemconnect.operations import Comment
+from uuid import uuid4
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI.format(app.root_path)
@@ -36,7 +40,7 @@ def login():
 	)
 	auth_url = c.get_login_url(
 		"http://127.0.0.1:5000/complete/steemconnect/",
-		"login,vote",
+		"login,vote,comment,custom_json",
 	)
 	return redirect(auth_url)
 
@@ -68,15 +72,41 @@ def init_db():
 	return 'db_created'
 
 
+@app.route('/create_post', methods=['POST'])
+def create_post():
+	data_dict = json.loads(request.data)
+	user_id = data_dict['user_id']
+	title = data_dict['title']
+	body = data_dict['body']
+	user = User.query.filter_by(user_id=user_id).first()
+	if not user:
+		raise Unauthorized('Not authorized with steamconnect')
+	client = Client(access_token=user.steem_token)
+	permlink = title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
+	if not permlink or len(permlink) < 4:
+		permlink = str(uuid4())
+	comment = Comment(
+		user.user_id,
+		permlink,
+		"Make donations/tipping easy <a href=\"http://donatenow.io\">donatenow!</a>",
+		title=title,
+		json_metadata={"app": "donate.now/0.0.1", "body": body},
+	)
+	r = client.broadcast([comment.to_operation_structure()])
+	if 'error_description' in r and r['error_description']:
+		return r['error_description']
+	return 'post created'
+
+
 @app.route('/get_posts', methods=['POST'])
 def get_posts():
 	user_id = request.args['user_id']
 	return jsonify({'Status': 'TBD'})
 
+
 @app.route('/get_transfers', methods=['POST'])
 def get_transfers():
 	user_id = request.args['user_id']
-
 
 
 if __name__ == '__main__':

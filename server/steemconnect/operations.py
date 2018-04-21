@@ -114,18 +114,6 @@ class Follow(CustomJsonMixin):
         )
 
 
-class Unfollow(Follow):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.what = []
-
-
-class Mute(Follow):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.what = ["ignore"]
-
 
 class Resteem(CustomJsonMixin):
 
