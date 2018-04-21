@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 FE_URL = 'http://localhost:4200/login/success/{}'
+app_name = "donate.now/0.0.1"
 
 
 class User(db.Model):
@@ -80,7 +81,7 @@ def create_post():
 	body = data_dict['body']
 	user = User.query.filter_by(user_id=user_id).first()
 	if not user:
-		raise Unauthorized('Not authorized with steamconnect')
+		raise Unauthorized('Not authorized with steemconnect')
 	client = Client(access_token=user.steem_token)
 	permlink = title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
 	if not permlink or len(permlink) < 4:
@@ -90,7 +91,7 @@ def create_post():
 		permlink,
 		"Make donations/tipping easy <a href=\"http://donatenow.io\">donatenow!</a>",
 		title=title,
-		json_metadata={"app": "donate.now/0.0.1", "body": body},
+		json_metadata={"app": app_name, "body": body},
 	)
 	r = client.broadcast([comment.to_operation_structure()])
 	if 'error_description' in r and r['error_description']:
