@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import redirect
 from flask import request
 from steemconnect.client import Client
@@ -9,6 +9,7 @@ from settings import CLIENT_ID, CLIENT_SECRET
 app = Flask(__name__)
 
 FE_URL = 'http://localhost:4200/login/success/{}'
+STEEM_CLIENT = Steem()
 
 
 @app.route('/')
@@ -36,9 +37,15 @@ def login_complete():
 		access_token=token,
 	)
 	user_info = c.me()
-	s = Steem()
-	rr = s.get_account(user_info['name'])['sbd_balance']
 	return redirect(FE_URL.format(user_info['name']))
+
+
+@app.route('/get_posts', methods=['POST'])
+def get_posts():
+	user_id = request.args['user_id']
+	return jsonify({'Status': 'TBD'})
+
+
 
 
 if __name__ == '__main__':
