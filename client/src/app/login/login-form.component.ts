@@ -2,22 +2,27 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DOCUMENT } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-login-form',
+  selector: 'login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private router: Router,
-              @Inject(DOCUMENT) private document: any
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(DOCUMENT) private document: any
   ) {
 
   }
 
   ngOnInit() {
-
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   login() {
@@ -25,8 +30,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   signup() {
-    // this.document.location.href = 'https://signup.steemit.com/?ref=donatenow';
-    this.document.location.href = 'https://signup.steemit.com/';
+    this.document.location.href = 'https://signup.steemit.com/?ref=donatenow';
   }
 
   usePromo() {

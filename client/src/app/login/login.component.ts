@@ -1,25 +1,18 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  public msg: string;
+ constructor() {
 
-  constructor(
-    // private loginService: LoginService,
-  ) {
-    // this.loginService.helloWorld().subscribe((msg) => this.msg = msg);
-  }
+ }
 
-  ngOnInit() {
+ ngOnInit() {
 
-  }
+ }
 
 }

@@ -1,4 +1,19 @@
-<p>
-  login-success works!
-</p>
- {{ username }}
+<subheader title="Signing In"></subheader>
+
+<div class="row text-center success-msg">
+  <div class="col-lg-12">
+    <img src="assets/icons/check-circle.png" class="icon-check"
+         srcset="assets/icons/check-circle@2x.png 2x, assets/icons/check-circle@3x.png 3x">
+  </div>
+  <div class="col-lg-12 welcome-message">
+    <h3>You're logged in!</h3>
+    <p>Hello, <strong>{{ username }}</strong>. You will be redirected to dashboard.</p>
+  </div>
+</div>
+
+<div class="row text-center buttons">
+  <div class="col-md-12">
+    <button class="btn btn-primary" (click)="goToDashboard()">
+      Go to Dashboard ({{ redirectTimeoutAmount }})</button>
+  </div>
+</div>

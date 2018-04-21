@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'balance-widget',
   templateUrl: './balance-widget.component.html',
   styleUrls: ['./balance-widget.component.css'],
-  host: {
-    class: 'col-lg-12 px-0',
-  }
 })
 export class BalanceWidgetComponent implements OnInit {
 
