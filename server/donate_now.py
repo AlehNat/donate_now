@@ -177,6 +177,8 @@ def get_all(user_id):
 			'timestamp': item['timestamp'],
 			'cover_image_url': json_meta['cover_image_url'] if 'cover_image_url' in json_meta else '',
 			'transactions': [],
+			'amount_sbd': 0,
+			'amount_steem': 0,
 		}
 
 	transactions = []
@@ -239,6 +241,8 @@ def get_all(user_id):
 
 		if post_id in posts:
 			posts[post_id]['transactions'].append(transaction)
+			posts[post_id]['amount_sbd'] += transaction['amount_sbd']
+			posts[post_id]['amount_steem'] += transaction['amount_steem']
 
 		transactions.append(transaction)
 
