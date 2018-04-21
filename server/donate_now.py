@@ -106,7 +106,55 @@ def get_posts():
 
 @app.route('/get_transfers', methods=['POST'])
 def get_transfers():
-	user_id = request.args['user_id']
+	userName = request.args['user_id']
+    acc = Account(userName)
+    hist = acc.get_account_history(-1, 10000, filter_by='transfer')
+    listHistory = list(hist)
+
+    total_send_sbd = 0.0
+    total_receive_sbd = 0.0
+    total_send_steem = 0.0
+    total_receive_steem = 0.0
+    transaction_send = []
+    transaction_receive = []
+
+    for item in listHistory:
+
+        amount_sbd = 0.0
+        amount_steem = 0.0
+
+        if str(item['amount']).endswith('STEEM'):
+            amount_steem = float(str(item['amount']).replace('STEEM', ''))
+
+        if str(item['amount']).endswith('SBD'):
+            amount_sbd = float(str(item['amount']).replace('SBD', ''))
+
+        transaction = {
+            'amount_sbd': amount_sbd,
+            'amount_steem': amount_steem,
+            'timestamp': item['timestamp'],
+            'memo': item['memo']
+        }
+
+        if item['from'] == userName:
+            total_send_sbd += amount_sbd
+            total_send_steem += amount_steem
+            transaction_send.append(transaction)
+
+        if item['to'] == userName:
+            total_receive_sbd += amount_sbd
+            total_receive_steem += amount_steem
+            transaction_receive.append(transaction)
+
+    result = {
+        'total_send_sbd': total_send_sbd,
+        'total_send_steem': total_send_steem,
+        'total_receive_sbd': total_receive_sbd,
+        'total_receive_steem': total_receive_steem,
+        'transaction_send': transaction_send,
+        'transaction_receive': transaction_receive
+    }
+    return jsonify(result)
 
 
 if __name__ == '__main__':
