@@ -2,3 +2,22 @@
 .campaign-cover {
   max-width: 100%;
 }
+
+
+.campaign-details {
+  margin-top: 30px;
+}
+
+.campaign-details h4 {
+
+}
+
+.campaign-transactions-list {
+  margin-top: 20px;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.donate-button-wrapper {
+  margin: 20px 0;
+}

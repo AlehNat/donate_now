@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from '../../services/transactions.service';
-import { Transaction, TransactionModel } from '../../services/models/transaction.model';
-import { Observable } from 'rxjs/Observable';
+import { TransactionModel } from '../../services/models/transaction.model';
 import 'rxjs/add/observable/of';
 
 @Component({
@@ -26,14 +25,5 @@ export class TransactionsListComponent implements OnInit {
       (items: TransactionModel[]) => this.transactions = items
     );
 
-    // let stub = [
-    //   new TransactionModel({amount_sbd: 0.41122, amount_steem: 0, comment: 'hey! thanks!', timestamp: ''}),
-    //   new TransactionModel({amount_sbd: -1.414, amount_steem: 0, comment: 'Nice to meet you ^_^', timestamp: ''}),
-    //   new TransactionModel({amount_sbd: 48.13123, amount_steem: 0, comment: 'Great service!', timestamp: ''}),
-    //   new TransactionModel({amount_sbd: -14, amount_steem: 0, comment: 'wow nice', timestamp: ''}),
-    // ];
-    // Observable.of(stub).subscribe(
-    //   (data) => this.transactions = data
-    // );
   }
 }

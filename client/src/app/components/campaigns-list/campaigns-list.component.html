@@ -2,7 +2,11 @@
 
   <div class="campaigns-list" *ngIf="campaigns.length; else campaignsNotFound">
     <h5>{{ campaigns.length }} active campaign{{ campaigns.length !== 1 ? 's' : '' }}</h5>
-    <campaigns-list-item *ngFor="let item of campaigns" [campaign]="item"></campaigns-list-item>
+
+    <ng-container *ngFor="let item of campaigns">
+      <campaigns-list-item [campaign]="item" [clickable]="true"></campaigns-list-item>
+      <hr>
+    </ng-container>
   </div>
 
 </ng-container>

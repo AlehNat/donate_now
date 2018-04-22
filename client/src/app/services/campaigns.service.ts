@@ -18,6 +18,14 @@ export class CampaignsService {
   ) {
   }
 
+  public getCampaign(user_id: string, post_id: string): Observable<CampaignModel> {
+    let url = `${this.baseUrl}${this.urlGet}`;
+    let options = { params: { user_id, post_id } };
+
+    return this.http.get(url, options)
+      .map((data: Object) => new CampaignModel(data));
+  }
+
   public getCampaigns(username: string): Observable<CampaignModel[]> {
     let url = `${this.baseUrl}${this.urlGet}`;
     let options = {
