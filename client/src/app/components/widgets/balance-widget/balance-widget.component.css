@@ -51,6 +51,7 @@ div.balance-widget {
   height: 47px;
   margin: 16px 0;
   color: white;
+  flex-grow: 1;
 }
 
 .positive {
@@ -90,4 +91,13 @@ div.balance-widget {
 
 .btn-down {
   background-color: #116fe5;
+}
+
+
+.rounded-circle {
+  width: 60px;
+  height: 60px;
+  background: white;
+  margin-top: 10px;
+  margin-right: 20px;
 }

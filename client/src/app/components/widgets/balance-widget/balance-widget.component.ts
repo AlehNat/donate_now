@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from '../../../services/transactions.service';
 import { AuthService } from '../../../services/auth.service';
+import { UserModel } from '../../../services/models/user.model';
 
 @Component({
   selector: 'balance-widget',
@@ -8,6 +9,8 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./balance-widget.component.css'],
 })
 export class BalanceWidgetComponent implements OnInit {
+
+  public profile: UserModel;
 
   public balance: number;
   public diff: number;
@@ -28,13 +31,13 @@ export class BalanceWidgetComponent implements OnInit {
   }
 
   private initProfileBalance() {
-    let profile = this.authService.getProfile();
-    if ('balance' in profile) {
-      this.balance = profile.balance;
+    this.profile = this.authService.getProfile();
+    if ('balance' in this.profile) {
+      this.balance = this.profile.balance;
     }
 
-    if ('lastDiff' in profile) {
-      this.diff = profile.lastDiff;
+    if ('lastDiff' in this.profile) {
+      this.diff = this.profile.lastDiff;
     }
   }
 }
