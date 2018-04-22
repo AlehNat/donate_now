@@ -1,8 +1,12 @@
 # Donate now!
-This application was build during 'Imaguru blockchailn hackathon'
- 
-https://i.imgur.com/onAEeQG.png 
+This application was build during 'Imaguru blockchailn hackathon'.
 
+
+![alt text]( https://i.imgur.com/onAEeQG.png "Logo Title Text 1")
+
+Rewards:
+ETH: 0xe97425aD79fB5a67Ee9A2416dD0cA75B72179B49
+Steem: @olegn
 
 # Server 
 
