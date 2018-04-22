@@ -1,8 +1,25 @@
 <transactions-filter></transactions-filter>
 
-<div>
+<ng-container *ngIf="!loading; else loadingScreen">
 
-  <transactions-list-item *ngFor="let item of transactions" [transaction]="item">
-  </transactions-list-item>
+  <div *ngIf="transactions.length; else transactionsNotFound">
+    <transactions-list-item *ngFor="let item of transactions" [transaction]="item">
+    </transactions-list-item>
+  </div>
+</ng-container>
 
-</div>
+<ng-template #transactionsNotFound>
+  <div class="mt-2">
+    <div class="col-lg-8 text-muted">
+      No transactions
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingScreen>
+  <div class="mt-2">
+    <div class="col-lg-8">
+      Loading...
+    </div>
+  </div>
+</ng-template>
