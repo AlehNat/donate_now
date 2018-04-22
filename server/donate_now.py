@@ -5,7 +5,8 @@ from flask import request
 from flask import Response
 from flask_sqlalchemy import SQLAlchemy
 from steem.account import Account
-from werkzeug.exceptions import Unauthorized
+from steembase.exceptions import AccountDoesNotExistsException
+from werkzeug.exceptions import Unauthorized, NotFound, BadRequest
 
 from settings import CLIENT_ID, CLIENT_SECRET, SQLALCHEMY_DATABASE_URI
 from steemconnect.client import Client
@@ -78,6 +79,13 @@ def init_db():
 @app.route('/create_post', methods=['POST'])
 def create_post():
 	data_dict = json.loads(request.data)
+	if 'user_id' not in data_dict:
+		raise BadRequest('user_id is mandatory param')
+	if 'title' not in data_dict:
+		raise BadRequest('title is mandatory param')
+	if 'body' not in data_dict:
+		raise BadRequest('body is mandatory param')
+
 	user_id = data_dict['user_id']
 	title = data_dict['title']
 	body = data_dict['body']
@@ -110,6 +118,8 @@ def create_post():
 
 @app.route('/posts')
 def get_posts():
+	if 'user_id' not in request.args:
+		raise BadRequest('user_id is mandatory param')
 	user_id = request.args['user_id']
 	post_id = request.args['post_id'] if 'post_id' in request.args else ''
 	all = get_all(user_id)
@@ -126,6 +136,8 @@ def get_posts():
 
 @app.route('/transfers')
 def get_transfers():
+	if 'user_id' not in request.args:
+		raise BadRequest('user_id is mandatory param')
 	user_id = request.args['user_id']
 
 	all = get_all(user_id)
@@ -139,8 +151,11 @@ def get_transfers():
 
 
 def get_all(user_id):
+	try:
+		acc = Account(user_id)
+	except AccountDoesNotExistsException as e:
+		raise NotFound('Account {} does not exists in blockchain'.format(user_id))
 
-	acc = Account(user_id)
 	user_history = list(acc.get_account_history(-1, 10000))
 
 	posts = {}
