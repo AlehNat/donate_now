@@ -5,14 +5,8 @@
   <span class="text-hide">{{ campaign.dateCreated() }}</span>
   <p>{{ campaign.body }}</p>
 
-
   <div>
-    <span>Transactions:</span>
-    <ul>
-      <li *ngFor="let transaction of campaign.transactions">
-        +{{ transaction.amount_sbd }} SBD {{ transaction.dateCreated() }}
-      </li>
-    </ul>
+    Total donated: {{ campaign.amount_sbd }} SBD
   </div>
 
 </div>
