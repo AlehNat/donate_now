@@ -1,5 +1,5 @@
 # Donate now!
-This application was build during 'Imaguru blockchailn hackathon'.
+This application was built during 'Imaguru blockchain hackathon'.
 
 
 ![alt text]( https://i.imgur.com/onAEeQG.png "Logo Title Text 1")
