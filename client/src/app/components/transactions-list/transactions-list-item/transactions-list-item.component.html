@@ -1,25 +1,37 @@
 <div class="transaction-item">
 
-  <div class="item-details">
-    <div class="amount positive" *ngIf="transaction.amount_sbd > 0">
-      +{{ transaction.amount_sbd | number }}
+  <ng-container *ngIf="transaction.isSend()">
+    <div class="item-details">
+      <div class="amount negative">
+        {{ transaction.amount_sbd | number }}
+      </div>
+
+      <div class="timestamp text-muted">{{ transaction.dateCreated() }} to
+        <img src="https://steemitimages.com/u/{{ transaction.counterparty }}/avatar"
+             class="rounded-circle">
+      </div>
     </div>
-    <div class="amount negative" *ngIf="transaction.amount_sbd < 0">
-      {{ transaction.amount_sbd | number }}
+
+  </ng-container>
+
+  <ng-container *ngIf="transaction.isReceived()">
+    <div class="item-details positive-details">
+      <div class="amount positive">
+        +{{ transaction.amount_sbd | number }}
+      </div>
+
+      <div class="timestamp text-muted">{{ transaction.dateCreated() }}</div>
     </div>
 
-    <div class="timestamp text-muted">{{ transaction.dateCreated() }}</div>
-  </div>
 
+    <div>
+      <img src="https://steemitimages.com/u/{{ transaction.counterparty }}/avatar"
+           class="rounded-circle">
 
-  <div>
-    <!--<div class="circle-username bg-info">{{ transaction.counterparty[0] }}</div>-->
-    <img src="https://steemitimages.com/u/{{ transaction.counterparty }}/avatar"
-         class="rounded-circle">
-
-    <div class="comment arrow_box">
-      <span>{{ transaction.comment }}</span>
+      <div class="comment arrow_box">
+        <span>{{ transaction.comment }}</span>
+      </div>
     </div>
-  </div>
+  </ng-container>
 
 </div>

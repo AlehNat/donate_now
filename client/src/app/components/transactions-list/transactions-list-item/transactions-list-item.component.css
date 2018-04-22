@@ -64,6 +64,11 @@
 
 .item-details {
   display: flex;
+  min-height: 60px;
+}
+
+.item-details.positive-details {
+  min-height: 30px;
 }
 
 .circle-username, .rounded-circle {
