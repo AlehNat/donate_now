@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
-import { CampaignModel } from './models/campaign.model';
+import { Campaign, CampaignModel } from './models/campaign.model';
 
 @Injectable()
 export class CampaignsService {
@@ -20,7 +20,7 @@ export class CampaignsService {
 
   public getCampaign(user_id: string, post_id: string): Observable<CampaignModel> {
     let url = `${this.baseUrl}${this.urlGet}`;
-    let options = { params: { user_id, post_id } };
+    let options = {params: {user_id, post_id}};
 
     return this.http.get(url, options)
       .map((data: Object) => new CampaignModel(data));
@@ -41,16 +41,19 @@ export class CampaignsService {
   }
 
   public getCurrentUserCampaigns(): Observable<CampaignModel[]> {
-    let { username } = this.authService.getProfile();
+    let {username} = this.authService.getProfile();
 
     return this.getCampaigns(username);
   }
 
-  public createCampaign(data) {
+  public createCampaign(data: CampaignModel): Observable<CampaignModel> {
     let url = `${this.baseUrl}${this.urlPost}`;
-    let body = data;
+    let body = JSON.stringify(data.asNewCampaign());
 
-    return this.http.post(url, body);
+    let resource$ = this.http.post(url, body)
+      .map((data) => new CampaignModel(data));
+
+    return resource$;
   }
 
 }

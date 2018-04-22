@@ -49,7 +49,7 @@ export class LoginSuccessComponent implements OnInit {
     this.timeout$ = timer(0, 1000);
     this.activeTimeoutSubscription = this.timeout$.subscribe( () => {
       this.redirectTimeoutAmount--;
-      if (this.redirectTimeoutAmount < 0) {
+      if (this.redirectTimeoutAmount <= 0) {
         this.goToDashboard();
         this.activeTimeoutSubscription.unsubscribe();
       }

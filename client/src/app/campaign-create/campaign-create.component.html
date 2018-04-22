@@ -1,2 +1,34 @@
 <subheader title="New Campaign"></subheader>
 
+<div class="campaign-create">
+
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="title">Campaign Title</label>
+      <input type="text" class="form-control" id="title" aria-describedby="titeHelp"
+             placeholder="Campaign title..." formControlName="title">
+      <small id="titeHelp" class="form-text text-muted">
+        Your campaign title.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="coverImageUrl">Cover Image URL</label>
+      <input type="text" class="form-control" id="coverImageUrl" aria-describedby="imageHelp"
+             placeholder="Url to photo..." formControlName="cover_image_url">
+      <small id="imageHelp" class="form-text text-muted">
+        Url for photo which will be used as campaign cover photo.
+      </small>
+    </div>
+
+
+    <div class="form-group">
+      <label for="description">Campaign Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="body"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-md-10"
+            (click)="createCampaign($event)">Create Campaign</button>
+  </form>
+
+</div>
