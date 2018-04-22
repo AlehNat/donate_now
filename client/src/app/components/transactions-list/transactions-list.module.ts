@@ -10,6 +10,7 @@ import { TransactionsListItemComponent } from './transactions-list-item/transact
   ],
   exports: [
     TransactionsListComponent,
+    TransactionsListItemComponent,
   ],
   declarations: [
     TransactionsListComponent,

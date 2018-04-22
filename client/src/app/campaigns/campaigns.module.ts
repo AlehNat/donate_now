@@ -11,7 +11,7 @@ import { CampaignsListModule } from '../components/campaigns-list/campaigns-list
     CampaignsListModule,
   ],
   declarations: [
-    CampaignsComponent
+    CampaignsComponent,
   ]
 })
 export class CampaignsModule { }

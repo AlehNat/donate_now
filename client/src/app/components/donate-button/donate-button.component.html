@@ -1,0 +1,22 @@
+<button class="btn btn-success btn-lg btn-donate col-md-8" (click)="makeDonation($event)">
+  Donate Now
+</button>
+
+<div [ngClass]="{'hidden':!showDonateDetails}" [formGroup]="form" class="col-md-10 mt-3 donate-details">
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">SBD</span>
+    </div>
+    <input type="text" class="form-control" formControlName="amount"
+           aria-label="Amount (to the nearest steem dollar)">
+  </div>
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Comment</span>
+    </div>
+    <textarea class="form-control" aria-label="Comment here..." formControlName="comment"></textarea>
+  </div>
+
+</div>
