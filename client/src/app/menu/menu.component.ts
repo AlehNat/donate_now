@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'menu',
@@ -11,16 +11,16 @@ export class MenuComponent implements OnInit {
   menuVisible: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    private menuService: MenuService,
   ) {
 
   }
 
   ngOnInit() {
-    this.checkMenuVisibility();
+    this.subscribeToMenuState();
   }
 
-  private checkMenuVisibility() {
-    this.menuVisible = this.authService.isLoggedIn();
+  private subscribeToMenuState() {
+    this.menuService.menuVisible$.subscribe(visible => this.menuVisible = visible)
   }
 }

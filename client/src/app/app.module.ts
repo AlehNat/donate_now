@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { CampaignsService } from './services/campaigns.service';
 import { CampaignCreateModule } from './campaign-create/campaign-create.module';
+import { MenuService } from './services/menu.service';
+import { CampaignDetailsModule } from './campaign-details/campaign-details.module';
+import { DonateService } from './services/donate.service';
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import { CampaignCreateModule } from './campaign-create/campaign-create.module';
     HttpClientModule,
     CampaignsModule,
     CampaignCreateModule,
+    CampaignDetailsModule,
   ],
   declarations: [
     AppComponent,
@@ -41,6 +45,8 @@ import { CampaignCreateModule } from './campaign-create/campaign-create.module';
     AuthGuard,
     TransactionsService,
     CampaignsService,
+    MenuService,
+    DonateService,
   ],
   bootstrap: [AppComponent]
 })

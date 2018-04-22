@@ -1,4 +1,4 @@
-<div>
+<div (click)="redirectToDetails($event)">
 
   <img class="campaign-cover" *ngIf="campaign.cover_image_url" src="{{ campaign.cover_image_url }}">
   <h4>{{ campaign.title }}</h4>
@@ -6,9 +6,19 @@
   <p>{{ campaign.body }}</p>
 
   <div>
-    Total donated: {{ campaign.amount_sbd }} SBD
+    Total donated: {{ campaign.amount_sbd | number }} SBD
+  </div>
+
+  <div *ngIf="donateAllowed && details" class="donate-button-wrapper">
+    <donate-button [campaign]="campaign"></donate-button>
+  </div>
+
+  <div *ngIf="details" class="campaign-details">
+    <h4>Recent Transaction:</h4>
+    <div class="campaign-transactions-list">
+      <transactions-list-item *ngFor="let item of campaign.transactions" [transaction]="item">
+      </transactions-list-item>
+    </div>
   </div>
 
 </div>
-
-<hr>
