@@ -3,35 +3,35 @@ import * as moment from 'moment';
 
 export interface Campaign {
   user_id: string;
-  post_id: string;
+  post_id?: string;
   title: string;
   body: string;
   cover_image_url: string;
-  timestamp: string;
-  transactions: Transaction[]
-  amount_sbd: number;
-  amount_steem: number;
+  timestamp?: string;
+  transactions?: Transaction[]
+  amount_sbd?: number;
+  amount_steem?: number;
 }
 
 export class CampaignModel implements Campaign {
   user_id: string;
-  post_id: string;
+  post_id?: string;
   title: string;
   body: string;
   cover_image_url: string;
-  timestamp: string;
-  transactions: TransactionModel[];
-  amount_sbd: number;
-  amount_steem: number;
+  timestamp?: string;
+  transactions?: TransactionModel[];
+  amount_sbd?: number;
+  amount_steem?: number;
 
 
   constructor(data) {
-    this.post_id = data.post_id;
+    this.post_id = data.post_id || '';
     this.user_id = data.user_id;
     this.title = data.title;
     this.body = data.body;
     this.cover_image_url = data.cover_image_url;
-    this.timestamp = data.timestamp;
+    this.timestamp = data.timestamp || '';
     this.amount_sbd = data.amount_sbd || 0;
     this.amount_steem = data.amount_steem || 0;
     this.transactions = data.transactions && data.transactions.length
@@ -40,5 +40,14 @@ export class CampaignModel implements Campaign {
 
   dateCreated(): string {
     return moment.utc(this.timestamp).fromNow();
+  }
+
+  asNewCampaign(): Object {
+    return {
+      user_id: this.user_id,
+      title: this.title,
+      body: this.body,
+      cover_image_url: this.cover_image_url,
+    };
   }
 }

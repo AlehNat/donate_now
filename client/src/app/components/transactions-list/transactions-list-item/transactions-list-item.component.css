@@ -66,12 +66,14 @@
   display: flex;
 }
 
-
-.circle-username {
-  display: inline-block;
+.circle-username, .rounded-circle {
   margin-right: 10px;
   width: 32px;
   height: 32px;
+  display: inline-block;
+}
+
+.circle-username {
   border-radius: 50%;
   line-height: 32px;
   text-align: center;
