@@ -9,10 +9,11 @@ import { ProfileWidgetComponent } from './profile-widget/profile-widget.componen
   ],
   exports: [
     BalanceWidgetComponent,
+    ProfileWidgetComponent,
   ],
   declarations: [
     BalanceWidgetComponent,
-    ProfileWidgetComponent
+    ProfileWidgetComponent,
   ]
 })
 export class WidgetsModule {

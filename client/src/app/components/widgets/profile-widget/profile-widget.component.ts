@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserModel } from '../../../services/models/user.model';
 
 @Component({
   selector: 'profile-widget',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-widget.component.css']
 })
 export class ProfileWidgetComponent implements OnInit {
+
+  @Input() public profile: UserModel;
+
 
   constructor() { }
 
