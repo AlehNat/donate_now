@@ -11,6 +11,7 @@ import 'rxjs/add/observable/of';
 export class TransactionsListComponent implements OnInit {
 
   public transactions: TransactionModel[];
+  public loading: boolean = true;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -22,7 +23,10 @@ export class TransactionsListComponent implements OnInit {
 
   private subscribeToData() {
     this.transactionsService.getCurrentUserTransactions().subscribe(
-      (items: TransactionModel[]) => this.transactions = items
+      (items: TransactionModel[]) => {
+        this.transactions = items;
+        this.loading = false;
+      }
     );
 
   }
