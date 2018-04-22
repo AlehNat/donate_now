@@ -1,36 +1,23 @@
 <div class="transaction-item">
 
-  <ng-container *ngIf="transaction.amount_sbd > 0">
-
-    <div class="item-details">
-      <div class="amount positive">
-        +{{ transaction.amount_sbd }}
-      </div>
-
-      <div class="timestamp">{{ transaction.dateCreated() }}</div>
+  <div class="item-details">
+    <div class="amount positive" *ngIf="transaction.amount_sbd > 0">
+      +{{ transaction.amount_sbd }}
+    </div>
+    <div class="amount negative" *ngIf="transaction.amount_sbd < 0">
+      -{{ transaction.amount_sbd }}
     </div>
 
-    <div class="comment">
-      {{ transaction.comment }}
+    <div class="timestamp text-muted">{{ transaction.dateCreated() }}</div>
+  </div>
+
+
+  <div>
+    <div class="circle-username bg-info">{{ transaction.counterparty[0] }}</div>
+
+    <div class="comment arrow_box">
+      <span>{{ transaction.comment }}</span>
     </div>
-
-  </ng-container>
-
-
-  <ng-container *ngIf="transaction.amount_sbd < 0">
-
-
-    <div class="item-details">
-      <div class="amount negative">
-        -{{ transaction.amount_sbd }}
-      </div>
-      <div class="timestamp">{{ transaction.dateCreated() }}</div>
-    </div>
-
-    <div class="comment">
-      {{ transaction.comment }}
-    </div>
-
-  </ng-container>
+  </div>
 
 </div>
