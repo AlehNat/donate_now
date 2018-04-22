@@ -4,12 +4,16 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { TransactionModel } from './models/transaction.model';
 import 'rxjs/add/operator/map';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TransactionsService {
 
   public urlGet: string = '/transfers';
   public urlPost: string = '';
+
+  public balance$: Subject<number> = new Subject();
+  public diff$: Subject<number> = new Subject();
 
   private baseUrl: string = 'http://localhost:5000'; // @todo: to move to app constants
 
@@ -28,9 +32,17 @@ export class TransactionsService {
     };
 
     return this.http.get(url, options)
-      .map((data: Object[]) => data['result'].map(
-        item => new TransactionModel(item)
-      ));
+      .map((data: Object[]) => {
+        let balance = +data['sbd_balance'].replace(' SBD', '');
+        let transactions = data['result'].map(
+          item => new TransactionModel(item)
+        );
+        let diff = transactions[0].amount_sbd;
+
+        this.balance$.next(balance);
+        this.diff$.next(diff);
+        return transactions;
+      });
   }
 
   public getCurrentUserTransactions(): Observable<TransactionModel[]> {

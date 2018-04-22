@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from '../../../services/transactions.service';
 
 @Component({
   selector: 'balance-widget',
@@ -7,12 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BalanceWidgetComponent implements OnInit {
 
-  public balance: number = 235;
-  public diff: number = 13;
+  public balance: number = 0;
+  public diff: number = 0;
 
-  constructor() { }
+  constructor(
+    private transactionsService: TransactionsService,
+  ) { }
 
   ngOnInit() {
+
+    this.subscribeToBalance();
   }
 
+  private subscribeToBalance() {
+    this.transactionsService.balance$.subscribe( balance => this.balance = balance );
+    this.transactionsService.diff$.subscribe( diff => this.diff = diff );
+  }
 }
