@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+Donate SBD: <input type="text" id="amount" value="1">
+Comment: <input type="text" id="comment" value="">
+
+<button onclick="myFunction()">Donate!</button>
+
+<script>
+function myFunction() {
+    var amount = document.getElementById("amount").value;
+    var comment = document.getElementById("comment").value;
+    var from = "olegn";
+    var to = "olegn";
+    var post_id = "----donatenow--imaguru-hackathon-";
+    amount+="%20SBD";
+    var url = "https://steemconnect.com/sign/transfer"
+            +"?to="
+            +to
+            +"&amount="
+            +amount
+            +"&memo="
+            +comment
+            +"%20("
+            +post_id
+            +")";
+    window.open(url,"_self")
+}
+</script>
+
+</body>
+</html>
+

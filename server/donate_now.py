@@ -89,13 +89,17 @@ def create_post():
 	user_id = data_dict['user_id']
 	title = data_dict['title']
 	body = data_dict['body']
-	force_permlink = data_dict['force_permlink']
+	force_permlink = data_dict['force_permlink'] if 'force_permlink' in data_dict else ''
 	cover_image_url = data_dict.get('cover_image_url', '')
 	user = User.query.filter_by(user_id=user_id).first()
 	if not user:
 		raise Unauthorized('Not authorized with steemconnect')
 	client = Client(access_token=user.steem_token)
-	permlink = force_permlink or title.replace(' ', '-').replace('_', '-').encode('ascii', 'ignore')
+	permlink = force_permlink or title.lower().replace(' ', '-')\
+		.replace('_', '-')\
+		.replace(')', '-')\
+		.replace('(', '-')\
+		.encode('ascii', 'ignore')
 	if not permlink or len(permlink) < 4:
 		permlink = str(uuid4())
 	comment = Comment(
@@ -107,7 +111,7 @@ def create_post():
 	)
 	r = client.broadcast([comment.to_operation_structure()])
 	if 'error_description' in r and r['error_description']:
-		return r['error_description']
+		raise BadRequest(r['error_description'])
 
 	all_posts = get_all(user_id)
 	post = all_posts['posts'][permlink]
