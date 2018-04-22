@@ -12,7 +12,7 @@ export class TransactionsService {
   public urlGet: string = '/transfers';
   public urlPost: string = '';
 
-  public balance$: Subject<number> = new Subject();
+  public balance_sbd$: Subject<number> = new Subject();
   public diff$: Subject<number> = new Subject();
 
   private baseUrl: string = 'http://localhost:5000'; // @todo: to move to app constants
@@ -39,8 +39,13 @@ export class TransactionsService {
         );
         let diff = transactions[0].amount_sbd;
 
-        this.balance$.next(balance);
+
+        // @TODO: to refactor
+        this.balance_sbd$.next(balance);
         this.diff$.next(diff);
+        this.authService.getProfile().updateBalances(balance, diff);
+
+
         return transactions;
       });
   }

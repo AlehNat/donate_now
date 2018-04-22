@@ -5,11 +5,12 @@
 
   <div class="balance-info">
     <span class="title">My balance</span>
-    <span class="balance-amount">{{ balance }}</span>
-    <span class="balance-amount--diff" [ngSwitch]="diff > 0" [ngClass]="{'positive':diff > 0, 'negative': diff < 0}">
+    <span class="balance-amount">{{ balance | number }}</span>
+    <span class="balance-amount--diff" [ngSwitch]="diff > 0"
+          [ngClass]="{'positive':diff > 0, 'negative': diff < 0}">
       <span *ngSwitchCase="true" class="diff-direction">&uarr;</span>
       <span *ngSwitchCase="false" class="diff-direction">&darr;</span>
-      <span class="diff-amount">{{ diff }}</span>
+      <span class="diff-amount">{{ diff | number }}</span>
     </span>
   </div>
 

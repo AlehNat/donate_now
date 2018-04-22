@@ -1,33 +1,37 @@
 <nav class="navbar navbar-dark bg-white fixed-bottom" *ngIf="menuVisible">
 
   <ul class="list-inline">
+
+
     <li class="list-inline-item">
-      <a class="nav-link" href="" routerLink="/dashboard" routerLinkActive="active">
+      <a class="nav-link" href="" routerLink="/dashboard" routerLinkActive="active" title="My Dashboard">
+        <img src="assets/icons/user.png" class="dashboard-icon"
+             srcset="assets/icons/user@2x.png 2x,assets/icons/user@3x.png 3x">
+      </a>
+    </li>
+
+    <li class="list-inline-item">
+      <a class="nav-link" href="" routerLink="/campaigns" routerLinkActive="active" title="My Campaigns">
         <img src="assets/icons/dashboard.png" class="dashboard-icon"
              srcset="assets/icons/dashboard@2x.png 2x,assets/icons/dashboard@3x.png 3x">
       </a>
     </li>
 
     <li class="list-inline-item">
-      <a class="nav-link" href="" routerLink="/create-campaign" routerLinkActive="active">
+      <a class="nav-link" href="" routerLink="/create-campaign" routerLinkActive="active" title="Create Campaign">
         <img src="assets/icons/create-record.png" class="create-record-icon"
              srcset="assets/icons/create-record@2x.png 2x,assets/icons/create-record@3x.png 3x">
       </a>
     </li>
 
     <li class="list-inline-item">
-      <a class="nav-link" href="" routerLink="/maps/campaigns" routerLinkActive="active">
+      <!--<a class="nav-link" href="#" routerLink="/maps/campaigns" routerLinkActive="active">-->
+      <a class="nav-link" href="#" (click)="false" title="Demo Only button">
         <img src="assets/icons/geo-point.png" class="dashboard-icon"
              srcset="assets/icons/geo-point@2x.png 2x,assets/icons/geo-point@3x.png 3x">
       </a>
     </li>
 
-    <li class="list-inline-item">
-      <a class="nav-link" href="" routerLink="/profile" routerLinkActive="active">
-        <img src="assets/icons/user.png" class="dashboard-icon"
-             srcset="assets/icons/user@2x.png 2x,assets/icons/user@3x.png 3x">
-      </a>
-    </li>
 
   </ul>
 

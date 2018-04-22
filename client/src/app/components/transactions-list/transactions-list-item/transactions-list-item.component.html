@@ -2,10 +2,10 @@
 
   <div class="item-details">
     <div class="amount positive" *ngIf="transaction.amount_sbd > 0">
-      +{{ transaction.amount_sbd }}
+      +{{ transaction.amount_sbd | number }}
     </div>
     <div class="amount negative" *ngIf="transaction.amount_sbd < 0">
-      -{{ transaction.amount_sbd }}
+      {{ transaction.amount_sbd | number }}
     </div>
 
     <div class="timestamp text-muted">{{ transaction.dateCreated() }}</div>

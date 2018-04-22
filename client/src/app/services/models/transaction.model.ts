@@ -26,7 +26,7 @@ export class TransactionModel implements Transaction {
 
 
   dateCreated(): string {
-    return moment(this.timestamp).fromNow();
+    return moment.utc(this.timestamp).fromNow();
   }
 
 }

@@ -39,11 +39,16 @@ export class AuthService {
   getProfile(): UserModel {
     if (!this.profile) {
       let data = localStorage.getItem('profile');
-      this.profile = JSON.parse(data);
+      this.profile = new UserModel(JSON.parse(data));
     }
 
+    // @TODO: to refactor
     let loggedIn = !!this.profile;
     this.userLoggedIn$.next(loggedIn);
+
+    if (!(this.profile instanceof UserModel)) {
+      this.profile = new UserModel(this.profile);
+    }
 
     return this.profile;
   }
