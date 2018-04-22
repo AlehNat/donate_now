@@ -6,7 +6,12 @@ This application was build during 'Imaguru blockchailn hackathon'.
 
 Rewards:
 ETH: 0xe97425aD79fB5a67Ee9A2416dD0cA75B72179B49
-Steem: @olegn
+
+Steem: [@olegn](https://steemit.com/@olegn)
+
+Donations in SBD: [steemconnect](https://olegnatsevsky.github.io/donate_now/donate_donate_now.html)
+
+
 
 # Server 
 
