@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'campaigns',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CampaignsComponent implements OnInit {
 
-  constructor() { }
+  public username;
 
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+  ) {
+
   }
 
+  ngOnInit() {
+    this.fetchRouteParams();
+  }
+
+  private fetchRouteParams() {
+    this.username = this.route.snapshot.params.username;
+
+    if (!this.username) {
+      this.username = this.authService.getProfile().username;
+    }
+  }
 }

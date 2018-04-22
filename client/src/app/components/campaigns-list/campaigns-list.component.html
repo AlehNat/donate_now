@@ -1,6 +1,24 @@
-<div class="campaigns-list">
+<ng-container *ngIf="!loading; else loadingScreen">
 
-  <h2>Campaigns ({{ campaigns.length }})</h2>
-  <campaigns-list-item *ngFor="let item of campaigns" [campaign]="item"></campaigns-list-item>
+  <div class="campaigns-list" *ngIf="campaigns.length; else campaignsNotFound">
+    <h5>{{ campaigns.length }} active campaign{{ campaigns.length !== 1 ? 's' : '' }}</h5>
+    <campaigns-list-item *ngFor="let item of campaigns" [campaign]="item"></campaigns-list-item>
+  </div>
 
-</div>
+</ng-container>
+
+<ng-template #campaignsNotFound>
+  <div class="campaigns-list">
+    <div class="col-lg-8">
+      Campaigns not found :(
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingScreen>
+  <div class="campaigns-list">
+    <div class="col-lg-8">
+      Loading...
+    </div>
+  </div>
+</ng-template>

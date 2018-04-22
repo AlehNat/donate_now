@@ -27,6 +27,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'campaigns/:username', component: CampaignsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'login', component: LoginComponent,
     children: [
       {path: '', component: LoginFormComponent},
