@@ -275,7 +275,5 @@ if __name__ == '__main__':
 	app.run()
 
 
-# https://steemconnect.com/sign/transfer?from=olegn&to=steemitby&amount=0.01%20SBD&memo=test%20commint%20(69d6ac64-ad6d-4492-83b8-4dd0233ef264)
-
 # https://barcode.tec-it.com/barcode.ashx?code=QRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0&eclevel=L&data=fgjhdsg%20kjfhgd%20kjhsfgd%20kjs
 
