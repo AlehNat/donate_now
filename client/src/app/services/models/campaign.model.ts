@@ -9,6 +9,8 @@ export interface Campaign {
   cover_image_url: string;
   timestamp: string;
   transactions: Transaction[]
+  amount_sbd: number;
+  amount_steem: number;
 }
 
 export class CampaignModel implements Campaign {
@@ -19,6 +21,8 @@ export class CampaignModel implements Campaign {
   cover_image_url: string;
   timestamp: string;
   transactions: TransactionModel[];
+  amount_sbd: number;
+  amount_steem: number;
 
 
   constructor(data) {
@@ -28,6 +32,8 @@ export class CampaignModel implements Campaign {
     this.body = data.body;
     this.cover_image_url = data.cover_image_url;
     this.timestamp = data.timestamp;
+    this.amount_sbd = data.amount_sbd || 0;
+    this.amount_steem = data.amount_steem || 0;
     this.transactions = data.transactions && data.transactions.length
       ? data.transactions.map(item => new TransactionModel(item)) : [];
   }

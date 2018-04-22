@@ -15,6 +15,7 @@ import { TransactionsService } from './services/transactions.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { CampaignsService } from './services/campaigns.service';
+import { CampaignCreateModule } from './campaign-create/campaign-create.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CampaignsService } from './services/campaigns.service';
     DashboardModule,
     HttpClientModule,
     CampaignsModule,
+    CampaignCreateModule,
   ],
   declarations: [
     AppComponent,

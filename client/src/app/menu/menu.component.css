@@ -15,10 +15,13 @@
 .list-inline-item {
   width: 22%;
   padding: 10px 0;
-  opacity: 0.25;
   text-align: center;
 }
 
-.list-inline-item.active {
+.list-inline-item a.nav-link {
+  opacity: 0.25;
+}
+
+.list-inline-item a.nav-link.active {
   opacity: 1;
 }
