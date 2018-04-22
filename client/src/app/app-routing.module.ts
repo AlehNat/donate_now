@@ -15,7 +15,7 @@ import { CampaignCreateComponent } from './campaign-create/campaign-create.compo
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'welcome', component: WelcomeComponent},
   {
     path: 'home', component: HomeComponent,
