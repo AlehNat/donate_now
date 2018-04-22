@@ -39,6 +39,6 @@ export class CampaignModel implements Campaign {
   }
 
   dateCreated(): string {
-    return moment(this.timestamp).fromNow();
+    return moment.utc(this.timestamp).fromNow();
   }
 }
