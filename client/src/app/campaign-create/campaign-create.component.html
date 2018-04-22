@@ -2,6 +2,10 @@
 
 <div class="campaign-create">
 
+  <div class="alert alert-primary" role="alert" *ngIf="loading">
+    Creating campaign, please wait...
+  </div>
+
   <form [formGroup]="form">
     <div class="form-group">
       <label for="title">Campaign Title</label>
@@ -27,8 +31,8 @@
       <textarea class="form-control" id="description" rows="3" formControlName="body"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary col-md-10"
-            (click)="createCampaign($event)">Create Campaign</button>
+    <button type="submit" class="btn btn-primary col-md-10" [ngClass]="{'disabled': loading}"
+            (click)="createCampaign($event)" [disabled]="loading">Create Campaign</button>
   </form>
 
 </div>

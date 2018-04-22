@@ -13,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class CampaignCreateComponent implements OnInit {
 
   public form: FormGroup;
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,14 +30,18 @@ export class CampaignCreateComponent implements OnInit {
   public createCampaign(event) {
     event.preventDefault();
 
+    if (this.loading) return false;
+
     if (this.form.valid) {
       let data = Object.assign({}, this.form.value, {
         user_id: this.authService.getProfile().username
       });
       let campaign = new CampaignModel(data);
 
+      this.loading = true;
       this.service.createCampaign(campaign).subscribe(
         (campaign) => {
+          this.loading = false;
           this.router.navigate(['campaigns/user', campaign.user_id, 'post', campaign.post_id]);
         }
       )

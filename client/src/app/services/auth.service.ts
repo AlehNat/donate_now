@@ -26,11 +26,8 @@ export class AuthService {
   }
 
   logout(): Promise<boolean> {
-    if (this.getProfile()) {
-      localStorage.removeItem('profile');
-      this.userLoggedIn$.next(false);
-      // window.open('https://steemconnect.com/revoke/@donatenow', '_blank');
-    }
+    localStorage.removeItem('profile');
+    this.userLoggedIn$.next(false);
     return this.router.navigate(['/']);
   }
 

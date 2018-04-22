@@ -42,6 +42,7 @@ export class LoginSuccessComponent implements OnInit {
   }
 
   goToDashboard() {
+    this.clearTimer();
     this.router.navigate(['/dashboard']);
   }
 
@@ -51,8 +52,13 @@ export class LoginSuccessComponent implements OnInit {
       this.redirectTimeoutAmount--;
       if (this.redirectTimeoutAmount <= 0) {
         this.goToDashboard();
-        this.activeTimeoutSubscription.unsubscribe();
       }
     });
+  }
+
+  private clearTimer() {
+    if (this.activeTimeoutSubscription && !this.activeTimeoutSubscription.closed) {
+      this.activeTimeoutSubscription.unsubscribe();
+    }
   }
 }
