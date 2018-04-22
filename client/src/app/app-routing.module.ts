@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { LogoutComponent } from './logout/logout.component';
 import { CampaignsComponent } from './campaigns/campaigns.component';
+import { CampaignCreateComponent } from './campaign-create/campaign-create.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -25,10 +26,20 @@ const routes: Routes = [
   {
     path: 'campaigns', component: CampaignsComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'campaigns/:username', component: CampaignsComponent,
-    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '', redirectTo: '/campaigns/my', pathMatch: 'full',
+      },
+      {
+        path: 'my', component: CampaignsComponent,
+      },
+      {
+        path: 'user/:username', component: CampaignsComponent,
+      },
+      {
+        path: 'create', component: CampaignCreateComponent,
+      },
+    ]
   },
   {
     path: 'login', component: LoginComponent,

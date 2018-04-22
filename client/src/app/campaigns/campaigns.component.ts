@@ -23,7 +23,7 @@ export class CampaignsComponent implements OnInit {
   }
 
   private fetchRouteParams() {
-    this.username = this.route.snapshot.params.username;
+    this.username = this.route.firstChild.snapshot.params.username;
 
     if (!this.username) {
       this.username = this.authService.getProfile().username;
