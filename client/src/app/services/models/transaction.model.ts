@@ -29,4 +29,12 @@ export class TransactionModel implements Transaction {
     return moment.utc(this.timestamp).fromNow();
   }
 
+  isSend(): boolean {
+    return this.amount_sbd < 0;
+  }
+
+  isReceived(): boolean {
+    return this.amount_sbd > 0;
+  }
+
 }
