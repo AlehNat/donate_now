@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { CampaignsService } from './services/campaigns.service';
 import { CampaignCreateModule } from './campaign-create/campaign-create.module';
+import { MenuService } from './services/menu.service';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { CampaignCreateModule } from './campaign-create/campaign-create.module';
     AuthGuard,
     TransactionsService,
     CampaignsService,
+    MenuService,
   ],
   bootstrap: [AppComponent]
 })

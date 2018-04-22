@@ -36,10 +36,11 @@ const routes: Routes = [
       {
         path: 'user/:username', component: CampaignsComponent,
       },
-      {
-        path: 'create', component: CampaignCreateComponent,
-      },
     ]
+  },
+  {
+    path: 'create-campaign', component: CampaignCreateComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login', component: LoginComponent,
