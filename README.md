@@ -1,5 +1,6 @@
 # Donate now!
-This application was build during 2-day 'Imaguru Blockchain Hackathon'.
+This application was built during 2-day 'Imaguru Blockchain Hackathon'.
+
 
 
 ![donatenow presentation title]( https://i.imgur.com/onAEeQG.png "DonateNow Presentation Title")
