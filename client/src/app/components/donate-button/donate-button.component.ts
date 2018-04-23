@@ -30,15 +30,14 @@ export class DonateButtonComponent implements OnInit {
   }
 
   makeDonation() {
-    if (this.showDonateDetails) {
-      if (this.form.valid) {
-        this.performDonation();
-      }
-    } else {
-      this.showDonateDetails = true;
-    }
+    this.showDonateDetails = true;
   }
 
+  donateNow() {
+    if (this.showDonateDetails && this.form.valid) {
+      this.performDonation();
+    }
+  }
 
   private performDonation() {
     let data = <Donation>{
