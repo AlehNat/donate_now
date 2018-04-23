@@ -6,7 +6,7 @@ import { UserModel } from '../../../services/models/user.model';
 @Component({
   selector: 'balance-widget',
   templateUrl: './balance-widget.component.html',
-  styleUrls: ['./balance-widget.component.css'],
+  styleUrls: ['./balance-widget.component.scss'],
 })
 export class BalanceWidgetComponent implements OnInit {
 

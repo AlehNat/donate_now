@@ -5,7 +5,7 @@ import { TransactionModel } from '../../../services/models/transaction.model';
   selector: 'transactions-list-item',
   templateUrl: './transactions-list-item.component.html',
   styleUrls: [
-    './transactions-list-item.component.css',
+    './transactions-list-item.component.scss',
   ]
 })
 export class TransactionsListItemComponent implements OnInit {

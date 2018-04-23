@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'donate-button',
   templateUrl: './donate-button.component.html',
-  styleUrls: ['./donate-button.component.css']
+  styleUrls: ['./donate-button.component.scss']
 })
 export class DonateButtonComponent implements OnInit {
 
@@ -30,15 +30,14 @@ export class DonateButtonComponent implements OnInit {
   }
 
   makeDonation() {
-    if (this.showDonateDetails) {
-      if (this.form.valid) {
-        this.performDonation();
-      }
-    } else {
-      this.showDonateDetails = true;
-    }
+    this.showDonateDetails = true;
   }
 
+  donateNow() {
+    if (this.showDonateDetails && this.form.valid) {
+      this.performDonation();
+    }
+  }
 
   private performDonation() {
     let data = <Donation>{

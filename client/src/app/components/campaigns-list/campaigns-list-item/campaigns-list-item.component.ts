@@ -6,7 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'campaigns-list-item',
   templateUrl: './campaigns-list-item.component.html',
-  styleUrls: ['./campaigns-list-item.component.css']
+  styleUrls: ['./campaigns-list-item.component.scss']
 })
 export class CampaignsListItemComponent implements OnInit {
 

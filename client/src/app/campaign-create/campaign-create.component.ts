@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'campaign-create',
   templateUrl: './campaign-create.component.html',
-  styleUrls: ['./campaign-create.component.css']
+  styleUrls: ['./campaign-create.component.scss']
 })
 export class CampaignCreateComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { UserModel } from '../../../services/models/user.model';
 @Component({
   selector: 'profile-widget',
   templateUrl: './profile-widget.component.html',
-  styleUrls: ['./profile-widget.component.css']
+  styleUrls: ['./profile-widget.component.scss']
 })
 export class ProfileWidgetComponent implements OnInit {
 

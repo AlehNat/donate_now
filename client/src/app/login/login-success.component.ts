@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'login-success',
   templateUrl: './login-success.component.html',
-  styleUrls: ['./login-success.component.css'],
+  styleUrls: ['./login-success.component.scss'],
 })
 export class LoginSuccessComponent implements OnInit {
 

@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 @Component({
   selector: 'transactions-list',
   templateUrl: './transactions-list.component.html',
-  styleUrls: ['./transactions-list.component.css']
+  styleUrls: ['./transactions-list.component.scss']
 })
 export class TransactionsListComponent implements OnInit {
 

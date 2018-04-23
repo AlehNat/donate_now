@@ -1,5 +1,5 @@
-<menu></menu>
+<app-menu></app-menu>
 
-<main role="main" class="container">
+<main role="main" class="container" [ngClass]="getExtraClasses()">
   <router-outlet></router-outlet>
 </main>

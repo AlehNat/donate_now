@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'campaign-details',
   templateUrl: './campaign-details.component.html',
-  styleUrls: ['./campaign-details.component.css']
+  styleUrls: ['./campaign-details.component.scss']
 })
 export class CampaignDetailsComponent implements OnInit {
 

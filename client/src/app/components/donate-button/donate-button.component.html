@@ -1,5 +1,6 @@
-<button class="btn btn-success btn-lg btn-donate col-md-8" (click)="makeDonation($event)">
-  Donate Now
+<button *ngIf="!showDonateDetails"
+        class="btn btn-success btn-lg btn-make-donation col-md-8" (click)="makeDonation($event)">
+  Make Donation
 </button>
 
 <div [ngClass]="{'hidden':!showDonateDetails}" [formGroup]="form" class="col-md-10 mt-3 donate-details">
@@ -19,4 +20,7 @@
     <textarea class="form-control" aria-label="Comment here..." formControlName="comment"></textarea>
   </div>
 
+  <button class="btn btn-success btn-lg btn-donate col-md-8" (click)="donateNow($event)">
+    Donate Now
+  </button>
 </div>
