@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
-import { HomeModule } from './home/home.module';
 import { MenuModule } from './menu/menu.module';
 import { AuthService } from './services/auth.service';
-import { WelcomeModule } from './welcome/welcome.module';
 import { NotFoundComponent } from './not-found.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthGuard } from './services/auth-guard.service';
@@ -27,9 +25,7 @@ import { DonateService } from './services/donate.service';
     AppRoutingModule,
     LoginModule,
     LogoutModule,
-    HomeModule,
     MenuModule,
-    WelcomeModule,
     DashboardModule,
     HttpClientModule,
     CampaignsModule,
