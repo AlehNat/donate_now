@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'donate-button',
   templateUrl: './donate-button.component.html',
-  styleUrls: ['./donate-button.component.css']
+  styleUrls: ['./donate-button.component.scss']
 })
 export class DonateButtonComponent implements OnInit {
 

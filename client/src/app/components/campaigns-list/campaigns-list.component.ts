@@ -5,7 +5,7 @@ import { CampaignModel } from '../../services/models/campaign.model';
 @Component({
   selector: 'campaigns-list',
   templateUrl: './campaigns-list.component.html',
-  styleUrls: ['./campaigns-list.component.css']
+  styleUrls: ['./campaigns-list.component.scss']
 })
 export class CampaignsListComponent implements OnInit {
 

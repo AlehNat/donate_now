@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
   host: {
     class: 'row'
   }

@@ -19,5 +19,9 @@ export class UserModel implements User {
       this.lastDiff = diff;
     }
   }
+
+  public getAtUsername(): string {
+    return `@${this.username}`;
+  }
 }
 

@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'campaigns',
   templateUrl: './campaigns.component.html',
-  styleUrls: ['./campaigns.component.css']
+  styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent implements OnInit {
 
