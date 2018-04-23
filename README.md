@@ -1,15 +1,16 @@
 # Donate now!
-This application was built during 'Imaguru blockchain hackathon'.
+This application was built during 2-day 'Imaguru Blockchain Hackathon'.
 
 
-![alt text]( https://i.imgur.com/onAEeQG.png "Logo Title Text 1")
+
+![donatenow presentation title]( https://i.imgur.com/onAEeQG.png "DonateNow Presentation Title")
 
 Rewards:
 ETH: 0xe97425aD79fB5a67Ee9A2416dD0cA75B72179B49
 
-Steem: [@olegn](https://steemit.com/@olegn)
+Steem: [@olegn](https://steemit.com/@olegn) [@pewpew](https://steemit.com/@pewpew)
 
-Donations in SBD: [steemconnect](https://olegnatsevsky.github.io/donate_now/donate_donate_now.html)
+Donations in SBD: [via steemconnect](https://olegnatsevsky.github.io/donate_now/donate_donate_now.html)
 
 
 
